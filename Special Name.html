@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Special Name Builder - Turki 10</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+       ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+          ♥ Thanks for Trusting Me and Using My Code ♥
+               ♥ يرجى عدم تعديل أي شيء او نشر اي شيء بدون الرجوع لتركي فقط ♥
+       ========================================================= */
+
+    :root{
+      --gold: #ffa500;
+      --gold-light: #ffb733;
+      --gold-dark: #ff8c00;
+      --bg-dark: #0a0a0f;
+      --glass-bg: rgba(18, 18, 24, 0.4);
+      --glass-border: rgba(255, 165, 0, 0.25);
+      --glass-highlight: rgba(255, 255, 255, 0.1);
+      --text-primary: #f8f9fa;
+      --text-secondary: #a8b2c1;
+      --input-bg: rgba(12, 12, 18, 0.5);
+      --shadow-gold: rgba(255, 165, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: #0a0a0f url('https://i.postimg.cc/wjLr5v5g/Gemini-Generated-Image-rb9e9rrb9e9rrb9e.png') center/cover no-repeat fixed;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 15px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(255, 140, 0, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(10, 10, 15, 0.50) 0%, rgba(10, 10, 15, 0.60) 100%);
+      z-index: 0;
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Glass Panel */
+    .panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(200%);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 165, 0, 0.1) inset,
+        inset 0 1px 0 var(--glass-highlight);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--gold) 50%, 
+        transparent 100%);
+      opacity: 0.7;
+      filter: blur(1px);
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Left Panel - Full Height */
+    .panel-left {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Right Panels */
+    .panel-right-top {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .panel-right-bottom {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    /* Preview Box */
+    .preview-section {
+      background: var(--input-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .preview-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--gold) 50%, 
+        transparent 100%);
+      filter: blur(1px);
+    }
+
+    .preview-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      opacity: 0.95;
+      text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+    }
+
+    .preview-display {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 165, 0, 0.15);
+      border-radius: 14px;
+      padding: 20px;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .preview-name {
+  font-size: 18px;
+  font-weight: 400;
+      color: var(--gold);
+      text-align: center;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .emoji-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+
+    .emoji-img:hover {
+      transform: scale(1.15);
+    }
+
+    /* Marquee */
+    .marquee-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      min-height: 40px;
+    }
+
+    .fivem-marquee {
+      animation: nameSlide 2300ms linear infinite;
+    }
+
+    @keyframes nameSlide {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 165, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
+      border-radius: 4px;
+      box-shadow: 
+        0 0 15px var(--shadow-gold),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* Form Groups */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .input, .select {
+      width: 100%;
+      background: var(--input-bg);
+      backdrop-filter: blur(15px) saturate(150%);
+      border: 1.5px solid rgba(255, 165, 0, 0.15);
+      border-radius: 14px;
+      padding: 11px 15px;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-family: 'Rubik', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .input:focus, .select:focus {
+      border-color: var(--gold);
+      background: rgba(12, 12, 18, 0.6);
+      box-shadow: 
+        0 0 0 3px var(--shadow-gold),
+        inset 0 1px 3px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .input:hover, .select:hover {
+      border-color: rgba(255, 165, 0, 0.25);
+      box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    /* Input Row */
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 11px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(255, 165, 0, 0.7) 0%, rgba(255, 140, 0, 0.8) 100%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1.5px solid rgba(255, 165, 0, 0.4);
+      color: #fff;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 4px 20px rgba(255, 165, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      line-height: 1.4;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+      transition: left 0.6s;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover::after {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 30px rgba(255, 165, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, rgba(255, 182, 51, 0.8) 0%, rgba(255, 165, 0, 0.9) 100%);
+      border-color: rgba(255, 165, 0, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: 
+        0 2px 15px rgba(255, 165, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, rgba(58, 58, 68, 0.6) 0%, rgba(42, 42, 52, 0.7) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, rgba(74, 74, 84, 0.7) 0%, rgba(58, 58, 68, 0.8) 100%);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-small {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Format Buttons */
+    .format-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .btn-format {
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 9px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(30, 30, 40, 0.4);
+      backdrop-filter: blur(15px) saturate(150%);
+      color: var(--text-secondary);
+      border: 1.5px solid rgba(255, 165, 0, 0.1);
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+      box-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      line-height: 1.3;
+    }
+
+    .btn-format::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 165, 0, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-format:hover::before {
+      opacity: 1;
+    }
+
+    .btn-format:hover {
+      background: rgba(40, 40, 50, 0.5);
+      border-color: rgba(255, 165, 0, 0.2);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-format.active {
+      background: linear-gradient(135deg, rgba(255, 165, 0, 0.7) 0%, rgba(255, 140, 0, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      border-color: rgba(255, 165, 0, 0.4);
+      box-shadow: 
+        0 4px 20px rgba(255, 165, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-format.active::before {
+      opacity: 1;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+    }
+
+    .btn-format.active:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 
+        0 6px 25px rgba(255, 165, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    /* Colors Section */
+    .colors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .color-chip {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 165, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+
+    .color-chip:hover {
+      transform: scale(1.12) rotate(8deg);
+      box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 0 3px rgba(255, 165, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 165, 0, 0.4);
+    }
+
+    .color-chip-index {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      padding: 3px 6px;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    .color-chip-delete {
+      position: absolute;
+      right: 4px;
+      bottom: 4px;
+      border: none;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ff6b6b;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    .color-chip-delete:hover {
+      background: var(--gold);
+      color: #000;
+      transform: scale(1.2);
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .color-picker {
+      width: 60px;
+      height: 48px;
+      padding: 0;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 165, 0, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .color-picker:hover {
+      border-color: var(--gold);
+      transform: scale(1.08);
+      box-shadow: 
+        0 6px 20px rgba(255, 165, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* Images Section */
+    .images-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .image-chip {
+      background: rgba(30, 30, 40, 0.4);
+      backdrop-filter: blur(15px) saturate(150%);
+      border: 1.5px solid rgba(255, 165, 0, 0.12);
+      border-radius: 20px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .image-chip:hover {
+      background: rgba(40, 40, 50, 0.5);
+      border-color: rgba(255, 165, 0, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .image-chip code {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      direction: ltr;
+      unicode-bidi: bidi-override;
+    }
+
+    .image-chip-delete {
+      border: none;
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    .image-chip-delete:hover {
+      background: var(--gold);
+      color: #000;
+      transform: scale(1.2) rotate(90deg);
+    }
+
+    /* Result Area */
+    .result-textarea {
+      background: var(--input-bg);
+      backdrop-filter: blur(15px) saturate(150%);
+      border: 1.5px solid rgba(255, 165, 0, 0.15);
+      border-radius: 14px;
+      padding: 15px;
+      color: var(--text-primary);
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      width: 100%;
+      min-height: 200px;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s ease;
+      line-height: 1.6;
+      direction: ltr;
+      unicode-bidi: bidi-override;
+      box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .result-textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 
+        0 0 0 3px var(--shadow-gold),
+        inset 0 1px 3px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    /* Button Group */
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    /* Helper Text */
+    .helper-text {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--shadow-gold);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .panel-left,
+      .panel-right-top,
+      .panel-right-bottom {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .format-bar {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- LEFT PANEL - Input & Preview -->
+  <div class="panel panel-left">
+    
+    <!-- Preview Section -->
+    <div class="preview-section">
+      <div class="preview-label">● شكل الأسم باللعبه ●</div>
+      <div class="preview-display">
+        <div class="marquee-container">
+          <span id="emojiBefore"></span>
+          <span id="namePreview" class="preview-name"></span>
+          <span id="emojiAfter"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Section -->
+    <div>
+      <div class="section-title">معلومات اللاعب</div>
+      
+      <div class="form-group">
+        <div class="form-label">🆔 الآيدي</div>
+        <input type="text" class="input" id="userId" placeholder="أدخل رقم الآيدي" oninput="updatePreview()">
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">✏️ أدخل الآسـم الذي تريده مع الزخرفة</div>
+        <input type="text" class="input" id="userName" placeholder="أدخل اسمك" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <!-- Format Section -->
+    <div>
+      <div class="section-title">تنسيق النص</div>
+      <div class="format-bar">
+        <button class="btn-format" data-fmt="b" onclick="toggleFmt('b')">عريض</button>
+        <button class="btn-format" data-fmt="i" onclick="toggleFmt('i')">مائل</button>
+        <button class="btn-format" data-fmt="marquee" onclick="toggleFmt('marquee')">تحريك</button>
+        <button class="btn-format" data-fmt="h1" onclick="toggleFmt('h1')">كبير جدا</button>
+        <button class="btn-format" data-fmt="h2" onclick="toggleFmt('h2')">كبير</button>
+        <button class="btn-format" data-fmt="h3" onclick="toggleFmt('h3')">وسط لا تحطه اذا تبيه طبيعي</button>
+        <button class="btn-format" data-fmt="h4" onclick="toggleFmt('h4')">صغير</button>
+        <button class="btn-format" data-fmt="h5" onclick="toggleFmt('h5')">صغير جدا</button>
+      </div>
+    </div>
+
+    <!-- Colors Section -->
+    <div>
+      <div class="section-title">إدارة الألوان</div>
+      
+      <div class="color-picker-wrapper">
+  <input type="color" class="color-picker" id="colorPicker" value="#ff0000">
+  <button class="btn btn-small" style="flex: 1; padding: 0 16px;" onclick="addColor()">إضافة</button>
+  <button class="btn btn-secondary btn-small" style="flex: 1; padding: 0 16px;" onclick="clearColors()">مسح الكل</button>
+</div>
+
+      <div class="colors-grid" id="colorsList"></div>
+      <div class="helper-text">💡 اضغط على × لحذف اللون</div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT TOP PANEL - Images -->
+  <div class="panel panel-right-top">
+    <div class="section-title">الإيموجي والصور</div>
+    
+    <div class="form-group">
+      <div class="form-label">🔗 رابط الصورة</div>
+      <div class="input-row">
+        <input type="text" class="input" id="imgUrl" placeholder="https://example.com/emoji.png">
+        <select class="select" id="imgPos" style="width: 110px;">
+          <option value="before">يسار الأسم</option>
+          <option value="after">يمين الأسم</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-small btn-icon" onclick="addImage()">
+      ➕ إضافة صورة
+    </button>
+
+    <div class="images-list" id="imagesChips"></div>
+    <div class="helper-text">💡 الصور تظهر قبل أو بعد الاسم</div>
+        <div class="helper-text">💡 ملاحظة: الحد الأقصى 2-3 ايموجي فقط</div>
+
+  </div>
+
+  <!-- RIGHT BOTTOM PANEL - Result -->
+  <div class="panel panel-right-bottom">
+    <div class="section-title">انسخ النتيجة النهائية اذا خلصت</div>
+    
+    <textarea class="result-textarea" id="result" readonly></textarea>
+    
+    <div class="btn-group">
+      <button class="btn btn-icon" onclick="copyResult()">
+        📋 نسخ
+      </button>
+      <button class="btn btn-secondary btn-icon" onclick="resetAll()">
+        🔄 إعادة تعيين
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ========== State ==========
+  let colors = ['#ff0000'];
+  let imagesBefore = [];
+  let imagesAfter = [];
+  let fmt = {
+    bold: false,
+    italic: false,
+    size: 'normal',
+    marquee: false
+  };
+
+  // ========== Hex to RGB ==========
+  function hexToRgb(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substring(0, 2), 16) || 0;
+    const g = parseInt(c.substring(2, 4), 16) || 0;
+    const b = parseInt(c.substring(4, 6), 16) || 0;
+    return { r, g, b };
+  }
+
+  // ========== Gradient Builder ==========
+function buildGradient() {
+  if (colors.length < 2) return 'none';
+  const angle = 217;
+  const step = 100 / (colors.length - 1);
+  const stops = colors.map((c, i) => `${c} ${(i * step).toFixed(2)}%`).join(', ');
+  return `linear-gradient(${angle}deg, ${stops})`;
+}
+
+  // ========== Colors UI ==========
+  function renderColors() {
+    const list = document.getElementById('colorsList');
+    list.innerHTML = '';
+    colors.forEach((c, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'color-chip';
+      chip.style.background = c;
+      
+      const idx = document.createElement('span');
+      idx.className = 'color-chip-index';
+      idx.textContent = i + 1;
+      
+      const del = document.createElement('button');
+      del.className = 'color-chip-delete';
+      del.textContent = '×';
+      del.onclick = () => {
+        colors.splice(i, 1);
+        if (!colors.length) colors.push('#ff0000');
+        renderColors();
+        updatePreview();
+        updateResult();
+      };
+      
+      chip.appendChild(idx);
+      chip.appendChild(del);
+      list.appendChild(chip);
+    });
+  }
+
+  function addColor() {
+    const picker = document.getElementById('colorPicker');
+    colors.push(picker.value || '#ff0000');
+    renderColors();
+    updatePreview();
+    updateResult();
+  }
+
+  function clearColors() {
+    colors = ['#ff0000'];
+    renderColors();
+    updatePreview();
+    updateResult();
+  }
+
+  // ========== Images UI ==========
+  function renderImages() {
+    const box = document.getElementById('imagesChips');
+    box.innerHTML = '';
+    
+    const makeChip = (url, pos, idx) => {
+      const chip = document.createElement('div');
+      chip.className = 'image-chip';
+      chip.innerHTML = `${pos === 'before' ? 'قبل' : 'بعد'} | <code>${url}</code>`;
+      
+      const del = document.createElement('button');
+      del.className = 'image-chip-delete';
+      del.textContent = '×';
+      del.onclick = () => {
+        if (pos === 'before') imagesBefore.splice(idx, 1);
+        else imagesAfter.splice(idx, 1);
+        renderImages();
+        updatePreview();
+        updateResult();
+      };
+      
+      chip.appendChild(del);
+      return chip;
+    };
+    
+    imagesBefore.forEach((u, i) => box.appendChild(makeChip(u, 'before', i)));
+    imagesAfter.forEach((u, i) => box.appendChild(makeChip(u, 'after', i)));
+  }
+
+  function addImage() {
+    const url = document.getElementById('imgUrl').value.trim();
+    const pos = document.getElementById('imgPos').value;
+    if (!url) return;
+    
+    if (pos === 'before') imagesBefore.push(url);
+    else imagesAfter.push(url);
+    
+    document.getElementById('imgUrl').value = '';
+    renderImages();
+    updatePreview();
+    updateResult();
+  }
+
+  // ========== Format Toggle ==========
+  function toggleFmt(type) {
+    if (type === 'b') fmt.bold = !fmt.bold;
+    else if (type === 'i') fmt.italic = !fmt.italic;
+    else if (type === 'marquee') fmt.marquee = !fmt.marquee;
+    else {
+      fmt.size = (fmt.size === type ? 'normal' : type);
+    }
+
+    document.querySelectorAll('.btn-format').forEach(btn => {
+      const f = btn.getAttribute('data-fmt');
+      let active = false;
+      if (f === 'b') active = fmt.bold;
+      else if (f === 'i') active = fmt.italic;
+      else if (f === 'marquee') active = fmt.marquee;
+      else if (['h1', 'h2', 'h3', 'h4', 'h5'].includes(f)) active = (fmt.size === f);
+      
+      if (active) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+
+    updatePreview();
+    updateResult();
+  }
+
+  // ========== Preview Update ==========
+  function updatePreview() {
+    const id = document.getElementById('userId').value.trim();
+    const nameInput = document.getElementById('userName').value.trim();
+    const preview = document.getElementById('namePreview');
+
+    let text = nameInput || id || '';
+    preview.textContent = text;
+
+    if (!text) {
+      preview.style.backgroundImage = 'none';
+      preview.style.color = 'var(--gold)';
+      preview.style.webkitTextFillColor = '';
+    } else {
+      if (colors.length === 1) {
+        preview.style.backgroundImage = 'none';
+        preview.style.color = colors[0];
+        preview.style.webkitTextFillColor = colors[0];
+      } else {
+        const gradient = buildGradient();
+        preview.style.backgroundImage = gradient;
+        preview.style.color = 'transparent';
+        preview.style.webkitTextFillColor = 'transparent';
+      }
+    }
+
+preview.style.fontWeight = fmt.bold ? '700' : '400';
+    preview.style.fontStyle = fmt.italic ? 'italic' : 'normal';
+
+let size = 18;
+if(fmt.size === 'h1') size = 32;
+else if(fmt.size === 'h2') size = 28;
+else if(fmt.size === 'h3') size = 24;
+else if(fmt.size === 'h4') size = 20;
+else if(fmt.size === 'h5') size = 16;
+    preview.style.fontSize = size + 'px';
+
+    if (fmt.marquee) preview.classList.add('fivem-marquee');
+    else preview.classList.remove('fivem-marquee');
+
+    const before = document.getElementById('emojiBefore');
+    const after = document.getElementById('emojiAfter');
+    before.innerHTML = '';
+    after.innerHTML = '';
+
+    imagesBefore.forEach(url => {
+      before.innerHTML += `<img src="${url}" class="emoji-img" alt="emoji">`;
+    });
+    imagesAfter.forEach(url => {
+      after.innerHTML += `<img src="${url}" class="emoji-img" alt="emoji">`;
+    });
+
+    updateResult();
+  }
+
+  // ========== Result Builder ==========
+  function buildColorLines() {
+    if (!colors.length) return [];
+    const lines = [];
+    let i = 0;
+    let labelIndex = 1;
+    
+    while (i < colors.length) {
+      const baseHex = colors[i];
+      const rgb = hexToRgb(baseHex);
+      let count = 1;
+      
+      while (i + count < colors.length && colors[i + count].toLowerCase() === baseHex.toLowerCase()) {
+        count++;
+      }
+      
+      let line = `Color ${labelIndex} : ${rgb.r} - ${rgb.g} - ${rgb.b}`;
+      if (count > 1) line += ` (repeat ${count} times)`;
+      lines.push(line);
+      i += count;
+      labelIndex++;
+    }
+    return lines;
+  }
+
+  function updateResult() {
+    const id = document.getElementById('userId').value.trim();
+    let name = document.getElementById('userName').value.trim();
+
+    let prefix = "";
+    if (fmt.bold) prefix += "<b>";
+    if (fmt.italic) prefix += "<i>";
+    if (fmt.size !== "normal") prefix += `<${fmt.size}>`;
+    if (fmt.marquee) prefix += "<marquee>";
+    name = prefix + name;
+
+    const allImages = [
+      ...imagesBefore.map(u => ({ pos: 'before', url: u })),
+      ...imagesAfter.map(u => ({ pos: 'after', url: u }))
+    ];
+
+    const colorLines = buildColorLines();
+
+    const lines = [];
+    lines.push('json (Ready to copy)');
+    lines.push('');
+    lines.push(`ID : ${id || ''}`);
+    lines.push(`Name : ${name || ''}`);
+    lines.push('');
+    lines.push('Images :');
+    if (!allImages.length) {
+      lines.push('-');
+    } else {
+      allImages.forEach(img => {
+        lines.push(`- ${img.pos} : ${img.url}`);
+      });
+    }
+    lines.push('');
+    lines.push('Colors in RGB');
+    if (!colorLines.length) {
+      const rgb = hexToRgb('#ff0000');
+      lines.push(`Color 1 : ${rgb.r} - ${rgb.g} - ${rgb.b}`);
+    } else {
+      colorLines.forEach(l => lines.push(l));
+    }
+
+    document.getElementById('result').value = lines.join('\n');
+  }
+
+  function copyResult() {
+    const txt = document.getElementById('result').value;
+    if (!txt) return;
+    navigator.clipboard.writeText(txt).then(() => {
+      console.log('Copied to clipboard');
+    });
+  }
+
+  // ========== Reset ==========
+  function resetAll() {
+    document.getElementById('userId').value = '';
+    document.getElementById('userName').value = '';
+    document.getElementById('imgUrl').value = '';
+    document.getElementById('imgPos').value = 'before';
+
+    colors = ['#ff0000'];
+    imagesBefore = [];
+    imagesAfter = [];
+    fmt.bold = false;
+    fmt.italic = false;
+    fmt.size = 'normal';
+    fmt.marquee = false;
+
+    document.querySelectorAll('.btn-format').forEach(b => b.classList.remove('active'));
+
+    renderColors();
+    renderImages();
+
+    const preview = document.getElementById('namePreview');
+    preview.textContent = '';
+    preview.style.backgroundImage = 'none';
+    preview.style.color = 'var(--gold)';
+    preview.style.webkitTextFillColor = '';
+
+    updateResult();
+  }
+
+  // ========== Init ==========
+  (function init() {
+    renderColors();
+    renderImages();
+    updateResult();
+  })();
+
+</script>
+</body>
+</html>
