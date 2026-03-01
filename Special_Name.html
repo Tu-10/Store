@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Special Name Builder - Turki 10</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Name Builder - Turki 10 (Origin Tags Compatible)</title>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* =========================================================
        ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
-          ♥ Thanks for Trusting Me and Using My Code ♥
-               ♥ يرجى عدم تعديل أي شيء او نشر اي شيء بدون الرجوع لتركي فقط ♥
+       Updated to be compatible with origin-Tags settings payload.
        ========================================================= */
 
     :root{
@@ -23,14 +23,15 @@
       --text-secondary: #a8b2c1;
       --input-bg: rgba(12, 12, 18, 0.5);
       --shadow-gold: rgba(255, 165, 0, 0.3);
+
+      --border-light: rgba(255,255,255,0.08);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Rubik', sans-serif;
       background: #0a0a0f url('https://i.postimg.cc/wjLr5v5g/Gemini-Generated-Image-rb9e9rrb9e9rrb9e.png') center/cover no-repeat fixed;
@@ -42,1142 +43,1328 @@
       padding: 30px 15px;
       position: relative;
     }
-
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: 
+      background:
         radial-gradient(circle at 15% 20%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 85% 80%, rgba(255, 140, 0, 0.06) 0%, transparent 50%),
         linear-gradient(180deg, rgba(10, 10, 15, 0.50) 0%, rgba(10, 10, 15, 0.60) 100%);
       z-index: 0;
     }
 
-    /* Main Container */
-    .container {
+    .container{
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 900px;
+      max-width: 1000px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       animation: fadeInUp 0.8s ease-out;
     }
-
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Glass Panel */
-    .panel {
+    .panel{
       background: var(--glass-bg);
       backdrop-filter: blur(30px) saturate(200%);
       border: 1.5px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(255, 165, 0, 0.1) inset,
         inset 0 1px 0 var(--glass-highlight);
       position: relative;
       overflow: hidden;
     }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--gold) 50%, 
-        transparent 100%);
+    .panel::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
       opacity: 0.7;
       filter: blur(1px);
     }
+    .panel-left { grid-column: 1; grid-row: 1 / 3; display:flex; flex-direction:column; gap: 16px; }
+    .panel-right-top { grid-column: 2; grid-row: 1; }
+    .panel-right-bottom { grid-column: 2; grid-row: 2; }
 
-    .panel::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    /* Left Panel - Full Height */
-    .panel-left {
-      grid-column: 1;
-      grid-row: 1 / 3;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* Right Panels */
-    .panel-right-top {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .panel-right-bottom {
-      grid-column: 2;
-      grid-row: 2;
-    }
-
-    /* Preview Box */
-    .preview-section {
-      background: var(--input-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1.5px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .preview-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--gold) 50%, 
-        transparent 100%);
-      filter: blur(1px);
-    }
-
-    .preview-label {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 600;
+    .section-title{
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--gold);
-      margin-bottom: 16px;
       opacity: 0.95;
-      text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
-    }
-
-    .preview-display {
-      background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 165, 0, 0.15);
-      border-radius: 14px;
-      padding: 20px;
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .preview-name {
-  font-size: 18px;
-  font-weight: 400;
-      color: var(--gold);
-      text-align: center;
-      background-size: 100% 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      -webkit-background-clip: text;
-      background-clip: text;
-      display: inline-block;
-    }
-
-    .emoji-img {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      border-radius: 6px;
-      transition: transform 0.3s ease;
-    }
-
-    .emoji-img:hover {
-      transform: scale(1.15);
-    }
-
-    /* Marquee */
-    .marquee-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      width: 100%;
-      min-height: 40px;
-    }
-
-    .fivem-marquee {
-      animation: nameSlide 2300ms linear infinite;
-    }
-
-    @keyframes nameSlide {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    /* Section Headers */
-    .section-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 165, 0, 0.15);
-      display: flex;
-      align-items: center;
+      text-shadow: 0 0 10px rgba(255,165,0,0.35);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
       gap: 10px;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      margin-bottom: 10px;
     }
 
-    .section-title::before {
-      content: "";
-      width: 4px;
-      height: 18px;
-      background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
-      border-radius: 4px;
-      box-shadow: 
-        0 0 15px var(--shadow-gold),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
+    .row{ display:flex; gap: 10px; align-items:center; flex-wrap: wrap; }
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
 
-    /* Form Groups */
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .input, .select {
+    .input, .select, .textarea, .editor{
       width: 100%;
       background: var(--input-bg);
-      backdrop-filter: blur(15px) saturate(150%);
-      border: 1.5px solid rgba(255, 165, 0, 0.15);
-      border-radius: 14px;
-      padding: 11px 15px;
+      border: 1px solid rgba(255,165,0,0.18);
+      border-radius: var(--radius-md);
       color: var(--text-primary);
-      font-size: 13px;
-      font-family: 'Rubik', sans-serif;
+      padding: 12px 14px;
       outline: none;
-      transition: all 0.3s ease;
-      box-shadow: 
-        inset 0 1px 3px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: 0.2s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
     }
-
-    .input:focus, .select:focus {
-      border-color: var(--gold);
-      background: rgba(12, 12, 18, 0.6);
-      box-shadow: 
-        0 0 0 3px var(--shadow-gold),
-        inset 0 1px 3px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transform: translateY(-1px);
+    .input:focus, .select:focus, .textarea:focus, .editor:focus{
+      border-color: rgba(255,165,0,0.45);
+      box-shadow: 0 0 0 3px rgba(255,165,0,0.10);
+      background: rgba(12,12,18,0.65);
     }
+    .select{ cursor: pointer; }
+    .textarea{ min-height: 180px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; direction:ltr; }
+    .hint{ color: var(--text-secondary); font-size: 12px; line-height: 1.4; opacity: 0.9; }
 
-    .input:hover, .select:hover {
-      border-color: rgba(255, 165, 0, 0.25);
-      box-shadow: 
-        inset 0 1px 3px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    /* Input Row */
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: end;
-    }
-
-    /* Buttons */
-    .btn {
-      width: 100%;
-      border: none;
-      outline: none;
+    .btn{
+      border: 1px solid rgba(255,165,0,0.22);
+      background: rgba(0,0,0,0.22);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: 14px;
       cursor: pointer;
-      border-radius: 14px;
-      padding: 11px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      background: linear-gradient(135deg, rgba(255, 165, 0, 0.7) 0%, rgba(255, 140, 0, 0.8) 100%);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1.5px solid rgba(255, 165, 0, 0.4);
-      color: #fff;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 20px rgba(255, 165, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      letter-spacing: 0.3px;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      line-height: 1.4;
-    }
-
-    .btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.4), 
-        transparent);
-      transition: left 0.6s;
-    }
-
-    .btn::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn:hover::after {
-      opacity: 1;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(255, 165, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      background: linear-gradient(135deg, rgba(255, 182, 51, 0.8) 0%, rgba(255, 165, 0, 0.9) 100%);
-      border-color: rgba(255, 165, 0, 0.6);
-    }
-
-    .btn:active {
-      transform: translateY(-1px);
-      box-shadow: 
-        0 2px 15px rgba(255, 165, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-secondary {
-      background: linear-gradient(135deg, rgba(58, 58, 68, 0.6) 0%, rgba(42, 42, 52, 0.7) 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-primary);
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: linear-gradient(135deg, rgba(74, 74, 84, 0.7) 0%, rgba(58, 58, 68, 0.8) 100%);
-      border-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-small {
-      padding: 8px 14px;
+      transition: 0.2s;
+      font-weight: 700;
       font-size: 12px;
-    }
-
-    .btn-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    /* Format Buttons */
-    .format-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       gap: 8px;
     }
-
-    .btn-format {
-      border: none;
-      cursor: pointer;
-      border-radius: 12px;
-      padding: 9px 8px;
-      font-size: 11px;
-      font-weight: 600;
-      background: rgba(30, 30, 40, 0.4);
-      backdrop-filter: blur(15px) saturate(150%);
-      color: var(--text-secondary);
-      border: 1.5px solid rgba(255, 165, 0, 0.1);
-      transition: all 0.3s ease;
-      letter-spacing: 0.3px;
-      box-shadow: 
-        0 2px 10px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      position: relative;
-      overflow: hidden;
-      line-height: 1.3;
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,165,0,0.55);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25), 0 0 18px rgba(255,165,0,0.12);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(255,165,0,0.22), rgba(255,183,51,0.18));
+      border-color: rgba(255,165,0,0.45);
+    }
+    .btn.danger{
+      border-color: rgba(255,85,85,0.35);
+      background: rgba(255,85,85,0.08);
     }
 
-    .btn-format::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 165, 0, 0.1) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .btn-format:hover::before {
-      opacity: 1;
-    }
-
-    .btn-format:hover {
-      background: rgba(40, 40, 50, 0.5);
-      border-color: rgba(255, 165, 0, 0.2);
-      color: var(--text-primary);
-      transform: translateY(-2px);
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .btn-format.active {
-      background: linear-gradient(135deg, rgba(255, 165, 0, 0.7) 0%, rgba(255, 140, 0, 0.8) 100%);
-      backdrop-filter: blur(20px);
-      color: #fff;
-      border-color: rgba(255, 165, 0, 0.4);
-      box-shadow: 
-        0 4px 20px rgba(255, 165, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-format.active::before {
-      opacity: 1;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-    }
-
-    .btn-format.active:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 
-        0 6px 25px rgba(255, 165, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-
-    /* Colors Section */
-    .colors-grid {
-      display: flex;
-      flex-wrap: wrap;
+    .toggle{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
       gap: 10px;
-      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,165,0,0.18);
+      background: rgba(0,0,0,0.18);
     }
-
-    .color-chip {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      border: 2px solid rgba(255, 165, 0, 0.2);
+    .toggle label{ font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+    .switch{
+      width: 44px; height: 24px;
+      border-radius: 999px;
       position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,165,0,0.25);
       cursor: pointer;
-      backdrop-filter: blur(5px);
+      flex-shrink: 0;
+      transition: 0.2s;
     }
-
-    .color-chip:hover {
-      transform: scale(1.12) rotate(8deg);
-      box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.4),
-        0 0 0 3px rgba(255, 165, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 165, 0, 0.4);
+    .switch::after{
+      content:"";
+      position:absolute;
+      top:2px; left:2px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.65);
+      transition: 0.2s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.35);
     }
+    .switch.on{
+      background: rgba(255,165,0,0.25);
+      border-color: rgba(255,165,0,0.55);
+    }
+    .switch.on::after{ left: 22px; background: rgba(255,255,255,0.95); }
 
-    .color-chip-index {
-      position: absolute;
-      top: 4px;
-      left: 4px;
+    /* Preview */
+    .preview-wrap{
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,165,0,0.15);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      min-height: 110px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position: relative;
+      overflow:hidden;
+    }
+    .preview-label{
+      position:absolute;
+      top: 10px; right: 10px;
       font-size: 10px;
       font-weight: 700;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-      padding: 3px 6px;
-      border-radius: 6px;
-      color: #fff;
+      color: rgba(255,165,0,0.85);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,165,0,0.18);
+      background: rgba(0,0,0,0.22);
     }
 
-    .color-chip-delete {
-      position: absolute;
-      right: 4px;
-      bottom: 4px;
-      border: none;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(4px);
-      color: #ff6b6b;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 6px;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      line-height: 1;
+    .tag-container{
+      position: relative;
+      transform: translateZ(0);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      will-change: transform;
     }
-
-    .color-chip-delete:hover {
-      background: var(--gold);
-      color: #000;
-      transform: scale(1.2);
+    .tag-bg-layer{
+      position:absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 1;
+      background: transparent;
     }
-
-    .color-picker-wrapper {
-      display: flex;
+    .tag-has-bg{ padding: 10px 18px; }
+    .tag-content{
+      position: relative;
+      z-index: 2;
+      display:flex;
+      align-items:center;
       gap: 10px;
-      margin-bottom: 12px;
+      direction: rtl;
+      unicode-bidi: embed;
     }
+    .layout-left { flex-direction: row; }
+    .layout-right { flex-direction: row-reverse; }
 
-    .color-picker {
-      width: 60px;
-      height: 48px;
-      padding: 0;
-      border-radius: 14px;
-      border: 2px solid rgba(255, 165, 0, 0.25);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .color-picker:hover {
-      border-color: var(--gold);
-      transform: scale(1.08);
-      box-shadow: 
-        0 6px 20px rgba(255, 165, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-
-    /* Images Section */
-    .images-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .image-chip {
-      background: rgba(30, 30, 40, 0.4);
-      backdrop-filter: blur(15px) saturate(150%);
-      border: 1.5px solid rgba(255, 165, 0, 0.12);
-      border-radius: 20px;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
-      box-shadow: 
-        0 2px 10px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .image-chip:hover {
-      background: rgba(40, 40, 50, 0.5);
-      border-color: rgba(255, 165, 0, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .image-chip code {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-family: 'Courier New', monospace;
-      font-size: 10px;
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .tag-text{
+      font-weight: 800;
+      font-size: 18px;
       white-space: nowrap;
-      direction: ltr;
-      unicode-bidi: bidi-override;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.75);
+      display:inline-block;
+      line-height: 1.2;
     }
-
-    .image-chip-delete {
-      border: none;
-      background: rgba(255, 107, 107, 0.2);
-      color: #ff6b6b;
-      font-size: 16px;
-      font-weight: bold;
+    /* emoji inside preview text */
+.tag-text img.inline-emoji{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: none;
+}
+    .tag-text font, .tag-text span{
+      -webkit-text-fill-color: initial !important;
+      background: none !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.75);
+    }
+    .tag-avatar{
+      width: 40px; height: 40px;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      line-height: 1;
+      background-size: cover;
+      background-position: center;
+      border: none;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
     }
 
-    .image-chip-delete:hover {
-      background: var(--gold);
-      color: #000;
-      transform: scale(1.2) rotate(90deg);
+    /* Background shapes (subset + compatible ids) */
+    .bg-capsule .tag-bg-layer { border-radius: 999px; border: 1px solid rgba(255,255,255,0.10); }
+    .bg-hexagon .tag-bg-layer { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); }
+    .bg-shield .tag-bg-layer { clip-path: polygon(50% 0, 100% 15%, 100% 85%, 50% 100%, 0 85%, 0 15%); }
+    .bg-diamond .tag-bg-layer { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+    .bg-badge .tag-bg-layer { border-radius: 12px 0 12px 0; }
+    .bg-cyber .tag-bg-layer { border: 1px solid rgba(0,255,255,0.45); clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); }
+    .bg-cloud .tag-bg-layer { border-radius: 20px; }
+    .bg-arrow .tag-bg-layer { clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%); }
+    .bg-glass .tag-bg-layer { border: 1px solid rgba(255,255,255,0.18); border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+    .bg-tech .tag-bg-layer { border-left: 3px solid rgba(255,255,255,0.18); border-right: 3px solid rgba(255,165,0,0.55); border-radius: 6px; }
+    .bg-crown .tag-bg-layer { clip-path: polygon(0% 100%, 0% 25%, 25% 50%, 50% 0%, 75% 50%, 100% 25%, 100% 100%); }
+    .bg-tag-modern .tag-bg-layer { clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%); border-left: 3px solid rgba(255,165,0,0.55); }
+
+    /* Shapes picker */
+    .shapes-grid{
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .shape-btn{
+      aspect-ratio: 1;
+      border-radius: 12px;
+      border: 1px solid rgba(255,165,0,0.16);
+      background: rgba(0,0,0,0.18);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 800;
+      color: rgba(255,255,255,0.75);
+      transition: 0.2s;
+      user-select:none;
+    }
+    .shape-btn:hover{ transform: translateY(-1px); border-color: rgba(255,165,0,0.45); }
+    .shape-btn.active{
+      border-color: rgba(255,165,0,0.75);
+      box-shadow: inset 0 0 0 2px rgba(255,165,0,0.12);
+      color: rgba(255,165,0,0.95);
     }
 
-    /* Result Area */
-    .result-textarea {
-      background: var(--input-bg);
-      backdrop-filter: blur(15px) saturate(150%);
-      border: 1.5px solid rgba(255, 165, 0, 0.15);
-      border-radius: 14px;
-      padding: 15px;
-      color: var(--text-primary);
-      font-size: 12px;
-      font-family: 'Courier New', monospace;
-      width: 100%;
-      min-height: 200px;
-      resize: vertical;
-      outline: none;
-      transition: all 0.3s ease;
-      line-height: 1.6;
-      direction: ltr;
-      unicode-bidi: bidi-override;
-      box-shadow: 
-        inset 0 1px 3px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .result-textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 
-        0 0 0 3px var(--shadow-gold),
-        inset 0 1px 3px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    /* Button Group */
-    .btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .color-chip{
+      display:flex;
+      align-items:center;
       gap: 10px;
-      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,165,0,0.18);
+      background: rgba(0,0,0,0.18);
+      cursor:pointer;
+      transition: 0.2s;
+    }
+    .color-chip:hover{ border-color: rgba(255,165,0,0.45); transform: translateY(-1px); }
+    .color-dot{
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+    .range{
+      width: 100%;
+      accent-color: var(--gold);
     }
 
-    /* Helper Text */
-    .helper-text {
-      font-size: 11px;
-      color: var(--text-secondary);
-      margin-top: 8px;
-      opacity: 0.75;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    /* Editor */
+    .editor{
+      min-height: 76px;
+      max-height: 140px;
+      overflow-y:auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      direction: rtl;
+    }
+    .editor img{
+      height: 1.6em;
+      width: 1.6em;
+      vertical-align: sub;
+      object-fit: cover;
+      border-radius: 6px;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    /* Emoji list */
+    .emoji-grid{
+      display:grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      padding: 12px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,165,0,0.18);
+      background: rgba(0,0,0,0.18);
+      max-height: 160px;
+      overflow:auto;
     }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--shadow-gold);
+    .emoji-tile{
+      aspect-ratio: 1;
       border-radius: 10px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: 0.15s;
+      border: 1px solid transparent;
     }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold);
+    .emoji-tile:hover{
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,165,0,0.25);
+      transform: scale(1.06);
     }
+    .emoji-tile img{ width: 22px; height: 22px; object-fit: contain; }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
-      .panel-left,
-      .panel-right-top,
-      .panel-right-bottom {
-        grid-column: 1;
-        grid-row: auto;
-      }
-
-      .format-bar {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    /* Color Picker Modal */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 999;
+      backdrop-filter: blur(6px);
+      padding: 18px;
     }
+    .modal{
+      width: 360px;
+      max-width: 92vw;
+      background: rgba(18,18,24,0.92);
+      border: 1px solid rgba(255,165,0,0.22);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.75);
+      overflow: hidden;
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,165,0,0.14);
+      color: var(--text-primary);
+      font-weight: 800;
+      letter-spacing: 0.6px;
+    }
+    .modal-header button{
+      border:none;
+      background: transparent;
+      color: rgba(255,85,85,0.95);
+      cursor:pointer;
+      font-weight: 900;
+      font-size: 18px;
+      padding: 4px 8px;
+      border-radius: 10px;
+      transition: 0.15s;
+    }
+    .modal-header button:hover{ background: rgba(255,85,85,0.12); }
+    .modal-body{ padding: 14px 16px 16px; }
+    .sv-area{
+      width: 100%;
+      height: 170px;
+      border-radius: 12px;
+      position: relative;
+      cursor: crosshair;
+      background: red;
+      overflow:hidden;
+      border: 1px solid rgba(255,165,0,0.12);
+    }
+    .sv-white{ position:absolute; inset:0; background: linear-gradient(to right, #fff, transparent); }
+    .sv-black{ position:absolute; inset:0; background: linear-gradient(to top, #000, transparent); }
+    .cursor{
+      position:absolute;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      transform: translate(-50%,-50%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      pointer-events:none;
+    }
+    .hue{
+      margin-top: 12px;
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
+      position: relative;
+      cursor:pointer;
+      border: 1px solid rgba(255,165,0,0.12);
+    }
+    .hue-thumb{
+      position:absolute;
+      top: -3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.55);
+      pointer-events:none;
+    }
+    .modal-footer{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .preview-box{
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,165,0,0.18);
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.25);
+      flex-shrink:0;
+    }
+    .hex{ flex: 1; direction:ltr; text-transform: uppercase; text-align:center; font-weight: 800; }
 
+    @media (max-width: 900px){
+      .container{ grid-template-columns: 1fr; }
+      .panel-left{ grid-column: 1; grid-row: auto; }
+      .panel-right-top, .panel-right-bottom{ grid-column: 1; }
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
-  
-  <!-- LEFT PANEL - Input & Preview -->
-  <div class="panel panel-left">
-    
-    <!-- Preview Section -->
-    <div class="preview-section">
-      <div class="preview-label">● شكل الأسم باللعبه ●</div>
-      <div class="preview-display">
-        <div class="marquee-container">
-          <span id="emojiBefore"></span>
-          <span id="namePreview" class="preview-name"></span>
-          <span id="emojiAfter"></span>
+  <div class="container">
+    <!-- LEFT: Text + Preview -->
+    <div class="panel panel-left">
+      <div class="section-title">محتوى الأيدي والأسم <span id="counter" class="hint">0 / 60</span></div>
+
+      <input id="targetId" class="input" type="text" placeholder="حط أيديك بالسيرفر هنا مثال : 10">
+
+      <div class="row">
+        <button class="btn" id="btnToggleEmojis">الأيموجي</button>
+        <button class="btn" id="btnPartialColor">تلوين محدد لحرف معين او اسم</button>
+        <button class="btn danger" id="btnClearFormat">مسح التلوين</button>
+      </div>
+
+      <div id="emojiArea" class="emoji-grid" style="display:none"></div>
+
+      <div class="grid-2">
+        <input id="customEmojiUrl" class="input" type="text" placeholder="رابط الأيموجي حقك ">
+        <button class="btn" id="btnInsertEmoji">إدراج</button>
+      </div>
+
+      <div id="textEditor" class="editor" contenteditable="true" placeholder="اكتب أسمك كامل مع الزخرفة ملاحظة الأيدي ممنوع تزخرفه اذا معك فقط كولر ايدي"></div>
+      <div class="hint">ماكس الحروف 50 حرف فقط</div>
+
+
+      <div class="section-title" style="margin-top: 8px;">الألوان ياليت تزبطها زين وبناء على رغبتك</div>
+
+      <div class="toggle">
+        <label>تدرج الالوان فقط لونين (Gradient)</label>
+        <div id="swTextGradient" class="switch"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="color-chip" data-color-target="baseColor">
+          <div class="color-dot" id="dotBase"></div>
+          <div class="hint">اللون الأساسي</div>
+        </div>
+
+        <div class="color-chip" data-color-target="secondColor" id="secondColorChip" style="display:none">
+          <div class="color-dot" id="dotSecond"></div>
+          <div class="hint">اللون الثاني</div>
+        </div>
+      </div>
+
+      <div id="gradientDirWrap" style="display:none; margin-top: 10px;">
+        <select id="gradientDir" class="select">
+          <option value="to right">أفقي ⮕</option>
+          <option value="to bottom">عمودي ⬇</option>
+          <option value="45deg">مائل ⬊</option>
+          <option value="-45deg">عكسي ⬋</option>
+          <option value="circle">دائري ●</option>
+        </select>
+      </div>
+
+      <div class="section-title" style="margin-top: 12px;">الشكل تحت يمثل شكل الأسم حقك في اللعبه</div>
+      <div class="preview-wrap">
+        <div class="preview-label">شكل تقريبي للأسم</div>
+        <div id="livePreview" class="tag-container"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT TOP: Background + Avatar -->
+    <div class="panel panel-right-top">
+      <div class="section-title">الخلفية خلف الأسم</div>
+
+      <div class="toggle">
+        <label>تفعيل الخلفية</label>
+        <div id="swBg" class="switch"></div>
+      </div>
+
+      <div id="bgControls" style="display:none; margin-top: 12px;">
+        <div class="hint" style="margin-bottom:8px;">اختر شكل الخلفية</div>
+        <div id="shapesGrid" class="shapes-grid"></div>
+
+        <div class="grid-2" style="margin-top: 12px;">
+          <div class="color-chip" data-color-target="bgColor1">
+            <div class="color-dot" id="dotBg1"></div>
+            <div class="hint">لون الخلفية</div>
+          </div>
+
+          <div>
+            <div class="hint" style="margin-bottom:8px;">الشفافية</div>
+            <input id="bgOpacity" class="range" type="range" min="0" max="1" step="0.1" value="0.9">
+          </div>
+        </div>
+
+        <div class="toggle" style="margin-top: 12px;">
+          <label>Gradient للخلفية</label>
+          <div id="swBgGrad" class="switch"></div>
+        </div>
+
+        <div id="bgGradWrap" style="display:none; margin-top: 10px;">
+          <div class="grid-2">
+            <div class="color-chip" data-color-target="bgColor2">
+              <div class="color-dot" id="dotBg2"></div>
+              <div class="hint">لون ثاني</div>
+            </div>
+            <select id="bgGradientDir" class="select">
+              <option value="to right">أفقي</option>
+              <option value="to bottom">عمودي</option>
+              <option value="45deg">مائل</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top: 18px;">افتار او صورتك الشخصية</div>
+
+      <div class="toggle">
+        <label>تفعيل الصورة</label>
+        <div id="swAvatar" class="switch"></div>
+      </div>
+
+      <div id="avatarControls" style="display:none; margin-top: 12px;">
+        <input id="avatarUrl" class="input" type="text" placeholder="رابط الصورة المباشر (URL)">
+
+        <div class="grid-2" style="margin-top: 10px;">
+          <select id="avatarPos" class="select">
+            <option value="right">يسار النص</option>
+            <option value="left">يمين النص</option>
+          </select>
+
+          <div class="toggle" style="padding: 10px 12px;">
+            <label>إطار للصورة</label>
+            <div id="swAvatarBorder" class="switch"></div>
+          </div>
+        </div>
+
+        <div id="avatarBorderColorWrap" style="display:none; margin-top: 10px;">
+          <div class="color-chip" data-color-target="avatarBorder">
+            <div class="color-dot" id="dotAvatarBorder"></div>
+            <div class="hint">لون الإطار</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Input Section -->
-    <div>
-      <div class="section-title">معلومات اللاعب</div>
-      
-      <div class="form-group">
-        <div class="form-label">🆔 الآيدي</div>
-        <input type="text" class="input" id="userId" placeholder="أدخل رقم الآيدي" oninput="updatePreview()">
+    <!-- RIGHT BOTTOM: Scale/Height + Output -->
+    <div class="panel panel-right-bottom">
+      <div class="section-title">تعديل الحجم كامل (ملاحظه ما نقدر نعدل حجم الصورة لحالها او الاسم لحاله التغيير كامل يشمل الأسم والصورة كامله)</div>
+
+      <div class="grid-2">
+        <div>
+          <div class="hint" style="margin-bottom:8px;">الحجم العام (Scale)</div>
+          <input id="scale" class="range" type="range" min="0" max="100" step="1" value="0">
+        </div>
+        <div>
+          <div class="hint" style="margin-bottom:8px;"> الارتفاع (تجاهلها) (Z-Offset)</div>
+          <input id="height" class="range" type="range" min="0.0" max="2.0" step="0.1" value="0.2">
+        </div>
       </div>
 
-      <div class="form-group">
-        <div class="form-label">✏️ أدخل الآسـم الذي تريده مع الزخرفة</div>
-        <input type="text" class="input" id="userName" placeholder="أدخل اسمك" oninput="updatePreview()">
+      <div class="row" style="margin-top: 12px;">
+        <button class="btn primary" id="btnCopySettings">أنسخ الكلام هنا وارسله لمسؤولين المتجر</button>
+        <button class="btn danger" id="btnReset">رسيت لكل شيء</button>
       </div>
-    </div>
 
-    <!-- Format Section -->
-    <div>
-      <div class="section-title">تنسيق النص</div>
-      <div class="format-bar">
-        <button class="btn-format" data-fmt="b" onclick="toggleFmt('b')">عريض</button>
-        <button class="btn-format" data-fmt="i" onclick="toggleFmt('i')">مائل</button>
-        <button class="btn-format" data-fmt="marquee" onclick="toggleFmt('marquee')">تحريك</button>
-        <button class="btn-format" data-fmt="h1" onclick="toggleFmt('h1')">كبير جدا</button>
-        <button class="btn-format" data-fmt="h2" onclick="toggleFmt('h2')">كبير</button>
-        <button class="btn-format" data-fmt="h3" onclick="toggleFmt('h3')">وسط لا تحطه اذا تبيه طبيعي</button>
-        <button class="btn-format" data-fmt="h4" onclick="toggleFmt('h4')">صغير</button>
-        <button class="btn-format" data-fmt="h5" onclick="toggleFmt('h5')">صغير جدا</button>
-      </div>
-    </div>
+      <textarea id="output" class="input" readonly></textarea>
+      <div class="hint">تم تصميم الصفحة للتسهيل والوصول الى افضل درجة ممكنه <br> رجاءا لا ترسل الاعدادات الا بعد التأكد الأكيد ان هذا الاسم النهائي لتجنب استعمال المحاولات</div>
+<br><br> <br>  
+      <div class="hint">صمم بشكل خاص من قبل 𝑻𝒖𝒓𝒌𝒊 10</div>
+            <div class="section-title" style="margin-top: 12px;">Made With ♡ 𝑻𝒖𝒓𝒌𝒊 10</div>
 
-    <!-- Colors Section -->
-    <div>
-      <div class="section-title">إدارة الألوان</div>
-      
-      <div class="color-picker-wrapper">
-  <input type="color" class="color-picker" id="colorPicker" value="#ff0000">
-  <button class="btn btn-small" style="flex: 1; padding: 0 16px;" onclick="addColor()">إضافة</button>
-  <button class="btn btn-secondary btn-small" style="flex: 1; padding: 0 16px;" onclick="clearColors()">مسح الكل</button>
-</div>
-
-      <div class="colors-grid" id="colorsList"></div>
-      <div class="helper-text">💡 اضغط على × لحذف اللون</div>
-    </div>
-
-  </div>
-
-  <!-- RIGHT TOP PANEL - Images -->
-  <div class="panel panel-right-top">
-    <div class="section-title">الإيموجي والصور</div>
-    
-    <div class="form-group">
-      <div class="form-label">🔗 رابط الصورة</div>
-      <div class="input-row">
-        <input type="text" class="input" id="imgUrl" placeholder="https://example.com/emoji.png">
-        <select class="select" id="imgPos" style="width: 110px;">
-          <option value="before">يسار الأسم</option>
-          <option value="after">يمين الأسم</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="btn btn-small btn-icon" onclick="addImage()">
-      ➕ إضافة صورة
-    </button>
-
-    <div class="images-list" id="imagesChips"></div>
-    <div class="helper-text">💡 الصور تظهر قبل أو بعد الاسم</div>
-        <div class="helper-text">💡 ملاحظة: الحد الأقصى 2-3 ايموجي فقط</div>
-
-  </div>
-
-  <!-- RIGHT BOTTOM PANEL - Result -->
-  <div class="panel panel-right-bottom">
-    <div class="section-title">انسخ النتيجة النهائية اذا خلصت</div>
-    
-    <textarea class="result-textarea" id="result" readonly></textarea>
-    
-    <div class="btn-group">
-      <button class="btn btn-icon" onclick="copyResult()">
-        📋 نسخ
-      </button>
-      <button class="btn btn-secondary btn-icon" onclick="resetAll()">
-        🔄 إعادة تعيين
-      </button>
     </div>
   </div>
 
-</div>
+  <!-- Color Picker Modal -->
+  <div id="pickerOverlay" class="overlay" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-header">
+        <span>أختيار الألوان</span>
+        <button id="pickerClose" title="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="svArea" class="sv-area">
+          <div class="sv-white"></div>
+          <div class="sv-black"></div>
+          <div id="svCursor" class="cursor"></div>
+        </div>
+        <div id="hueArea" class="hue">
+          <div id="hueThumb" class="hue-thumb"></div>
+        </div>
+
+        <div class="modal-footer">
+          <div id="pickerPreview" class="preview-box"></div>
+          <input id="hexInput" class="input hex" type="text" value="#FFFFFF">
+          <button class="btn primary" id="pickerSelect">تطبيق</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
-  // ========== State ==========
-  let colors = ['#ff0000'];
-  let imagesBefore = [];
-  let imagesAfter = [];
-  let fmt = {
-    bold: false,
-    italic: false,
-    size: 'normal',
-    marquee: false
-  };
+/* ==========================================
+   Origin-tags compatible settings model
+   ========================================== */
+const MAX_TEXT_LENGTH = 50;
 
-  // ========== Hex to RGB ==========
-  function hexToRgb(hex) {
-    const c = hex.replace('#', '');
-    const r = parseInt(c.substring(0, 2), 16) || 0;
-    const g = parseInt(c.substring(2, 4), 16) || 0;
-    const b = parseInt(c.substring(4, 6), 16) || 0;
-    return { r, g, b };
-  }
+// Scale UX: slider starts from left at 0 but real scale starts at 1.0 (مثل السكربت)
+const BASE_SCALE = 1.0;      // default (matches script)
+const MAX_SCALE_ADD = 1.0;   // slider 100 => scale 1.8
 
-  // ========== Gradient Builder ==========
-function buildGradient() {
-  if (colors.length < 2) return 'none';
-  const angle = 217;
-  const step = 100 / (colors.length - 1);
-  const stops = colors.map((c, i) => `${c} ${(i * step).toFixed(2)}%`).join(', ');
-  return `linear-gradient(${angle}deg, ${stops})`;
+function uiToScale(v){
+  const n = Math.max(0, Math.min(100, parseFloat(v || '0')));
+  return BASE_SCALE + (n/100) * MAX_SCALE_ADD;
 }
 
-  // ========== Colors UI ==========
-  function renderColors() {
-    const list = document.getElementById('colorsList');
-    list.innerHTML = '';
-    colors.forEach((c, i) => {
-      const chip = document.createElement('div');
-      chip.className = 'color-chip';
-      chip.style.background = c;
-      
-      const idx = document.createElement('span');
-      idx.className = 'color-chip-index';
-      idx.textContent = i + 1;
-      
-      const del = document.createElement('button');
-      del.className = 'color-chip-delete';
-      del.textContent = '×';
-      del.onclick = () => {
-        colors.splice(i, 1);
-        if (!colors.length) colors.push('#ff0000');
-        renderColors();
-        updatePreview();
-        updateResult();
-      };
-      
-      chip.appendChild(idx);
-      chip.appendChild(del);
-      list.appendChild(chip);
-    });
-  }
+function scaleToUi(s){
+  const n = (parseFloat(s || BASE_SCALE) - BASE_SCALE) / MAX_SCALE_ADD;
+  return String(Math.round(Math.max(0, Math.min(1, n)) * 100));
+}
 
-  function addColor() {
-    const picker = document.getElementById('colorPicker');
-    colors.push(picker.value || '#ff0000');
-    renderColors();
-    updatePreview();
-    updateResult();
-  }
+const shapes = [
+  { id: 'bg-capsule', label: '—' },
+  { id: 'bg-hexagon', label: '⬢' },
+  { id: 'bg-shield', label: '🛡' },
+  { id: 'bg-diamond', label: '◆' },
+  { id: 'bg-badge', label: '✦' },
+  { id: 'bg-cyber', label: '▣' },
+  { id: 'bg-cloud', label: '☁' },
+  { id: 'bg-arrow', label: '➤' },
+  { id: 'bg-glass', label: '▢' },
+  { id: 'bg-tech', label: '⌁' },
+  { id: 'bg-crown', label: '♛' },
+  { id: 'bg-tag-modern', label: '⌂' },
+];
 
-  function clearColors() {
-    colors = ['#ff0000'];
-    renderColors();
-    updatePreview();
-    updateResult();
-  }
+const defaultSettings = {
+  text: '',
+  fontFamily: "'A9eelsh'",
+  baseColor: '#ffffff',
+  useGradient: false,
+  secondColor: '#00d2ff',
+  gradientDir: 'to right',
 
-  // ========== Images UI ==========
-  function renderImages() {
-    const box = document.getElementById('imagesChips');
-    box.innerHTML = '';
-    
-    const makeChip = (url, pos, idx) => {
-      const chip = document.createElement('div');
-      chip.className = 'image-chip';
-      chip.innerHTML = `${pos === 'before' ? 'قبل' : 'بعد'} | <code>${url}</code>`;
-      
-      const del = document.createElement('button');
-      del.className = 'image-chip-delete';
-      del.textContent = '×';
-      del.onclick = () => {
-        if (pos === 'before') imagesBefore.splice(idx, 1);
-        else imagesAfter.splice(idx, 1);
-        renderImages();
-        updatePreview();
-        updateResult();
-      };
-      
-      chip.appendChild(del);
-      return chip;
-    };
-    
-    imagesBefore.forEach((u, i) => box.appendChild(makeChip(u, 'before', i)));
-    imagesAfter.forEach((u, i) => box.appendChild(makeChip(u, 'after', i)));
-  }
+  useAvatar: false,
+  avatar: '',
+  avatarPos: 'right',
+  useAvatarBorder: false,
+  avatarBorderColor: '#ffffff',
 
-  function addImage() {
-    const url = document.getElementById('imgUrl').value.trim();
-    const pos = document.getElementById('imgPos').value;
-    if (!url) return;
-    
-    if (pos === 'before') imagesBefore.push(url);
-    else imagesAfter.push(url);
-    
-    document.getElementById('imgUrl').value = '';
-    renderImages();
-    updatePreview();
-    updateResult();
-  }
+  scale: 1.0,
+  height: 0.2,
 
-  // ========== Format Toggle ==========
-  function toggleFmt(type) {
-    if (type === 'b') fmt.bold = !fmt.bold;
-    else if (type === 'i') fmt.italic = !fmt.italic;
-    else if (type === 'marquee') fmt.marquee = !fmt.marquee;
-    else {
-      fmt.size = (fmt.size === type ? 'normal' : type);
+  useBg: false,
+  bgShape: 'bg-capsule',
+  bgOpacity: 0.9,
+  bgColor1: '#282828',
+  bgUseGradient: false,
+  bgColor2: '#000000',
+  bgGradientDir: 'to right',
+};
+
+let currentSettings = structuredClone(defaultSettings);
+
+/* ==========================================
+   DOM
+   ========================================== */
+const el = {
+  targetId: document.getElementById('targetId'),
+  textEditor: document.getElementById('textEditor'),
+  counter: document.getElementById('counter'),
+  emojiArea: document.getElementById('emojiArea'),
+  btnToggleEmojis: document.getElementById('btnToggleEmojis'),
+  btnInsertEmoji: document.getElementById('btnInsertEmoji'),
+  customEmojiUrl: document.getElementById('customEmojiUrl'),
+  btnPartialColor: document.getElementById('btnPartialColor'),
+  btnClearFormat: document.getElementById('btnClearFormat'),
+
+  swTextGradient: document.getElementById('swTextGradient'),
+  secondColorChip: document.getElementById('secondColorChip'),
+  gradientDirWrap: document.getElementById('gradientDirWrap'),
+  gradientDir: document.getElementById('gradientDir'),
+
+  swBg: document.getElementById('swBg'),
+  bgControls: document.getElementById('bgControls'),
+  shapesGrid: document.getElementById('shapesGrid'),
+  bgOpacity: document.getElementById('bgOpacity'),
+  swBgGrad: document.getElementById('swBgGrad'),
+  bgGradWrap: document.getElementById('bgGradWrap'),
+  bgGradientDir: document.getElementById('bgGradientDir'),
+
+  swAvatar: document.getElementById('swAvatar'),
+  avatarControls: document.getElementById('avatarControls'),
+  avatarUrl: document.getElementById('avatarUrl'),
+  avatarPos: document.getElementById('avatarPos'),
+  swAvatarBorder: document.getElementById('swAvatarBorder'),
+  avatarBorderColorWrap: document.getElementById('avatarBorderColorWrap'),
+
+  scale: document.getElementById('scale'),
+  height: document.getElementById('height'),
+
+  livePreview: document.getElementById('livePreview'),
+  output: document.getElementById('output'),
+
+  btnCopySettings: document.getElementById('btnCopySettings'),
+  btnReset: document.getElementById('btnReset'),
+
+  // dots
+  dotBase: document.getElementById('dotBase'),
+  dotSecond: document.getElementById('dotSecond'),
+  dotBg1: document.getElementById('dotBg1'),
+  dotBg2: document.getElementById('dotBg2'),
+  dotAvatarBorder: document.getElementById('dotAvatarBorder'),
+
+  // picker
+  pickerOverlay: document.getElementById('pickerOverlay'),
+  pickerClose: document.getElementById('pickerClose'),
+  pickerSelect: document.getElementById('pickerSelect'),
+  svArea: document.getElementById('svArea'),
+  svCursor: document.getElementById('svCursor'),
+  hueArea: document.getElementById('hueArea'),
+  hueThumb: document.getElementById('hueThumb'),
+  hexInput: document.getElementById('hexInput'),
+  pickerPreview: document.getElementById('pickerPreview'),
+};
+
+function setSwitch(sw, on){
+  sw.classList.toggle('on', !!on);
+}
+function getSwitch(sw){
+  return sw.classList.contains('on');
+}
+
+/* ==========================================
+   Emoji presets (simple, editable)
+   ========================================== */
+const defaultEmojis = [
+  "https://i.postimg.cc/m2gHqqWv/1.png",
+  "https://i.postimg.cc/SRPcZsKh/2.png",
+  "https://i.postimg.cc/qqMvgk2S/3.png",
+  "https://i.postimg.cc/4N2Q2G5n/4.png",
+  "https://i.postimg.cc/7P0G7CkJ/5.png",
+  "https://i.postimg.cc/vZkW2HKP/6.png",
+  "https://i.postimg.cc/Kv3v0ztr/7.png",
+  "https://i.postimg.cc/d0z2Ykq6/8.png",
+  "https://i.postimg.cc/D0n9R04t/9.png",
+  "https://i.postimg.cc/HsYqzWZ2/10.png",
+];
+
+function renderEmojiGrid(){
+  el.emojiArea.innerHTML = "";
+  defaultEmojis.forEach(url => {
+    const tile = document.createElement('div');
+    tile.className = "emoji-tile";
+    tile.title = url;
+    const img = document.createElement('img');
+    img.src = url;
+    img.loading = "lazy";
+    tile.appendChild(img);
+    tile.addEventListener('click', () => insertEmoji(url));
+    el.emojiArea.appendChild(tile);
+  });
+}
+
+function insertEmoji(url){
+  if(!url) return;
+  el.textEditor.focus();
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = "emoji";
+  img.className = "inline-emoji";
+  document.getSelection()?.getRangeAt(0)?.insertNode(img);
+  // move cursor after img
+  const range = document.createRange();
+  range.setStartAfter(img);
+  range.collapse(true);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  updateFromUI();
+}
+
+/* ==========================================
+   Weighted length like origin-tags
+   - images count as 2 chars
+   ========================================== */
+function calculateWeightedLength(){
+  let len = 0;
+  const walker = document.createTreeWalker(el.textEditor, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+  let node;
+  while(node = walker.nextNode()){
+    if(node.nodeType === Node.TEXT_NODE){
+      len += node.textContent.length;
+    } else if(node.nodeType === Node.ELEMENT_NODE && node.tagName === 'IMG'){
+      len += 2;
     }
+  }
+  return len;
+}
 
-    document.querySelectorAll('.btn-format').forEach(btn => {
-      const f = btn.getAttribute('data-fmt');
-      let active = false;
-      if (f === 'b') active = fmt.bold;
-      else if (f === 'i') active = fmt.italic;
-      else if (f === 'marquee') active = fmt.marquee;
-      else if (['h1', 'h2', 'h3', 'h4', 'h5'].includes(f)) active = (fmt.size === f);
-      
-      if (active) btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
+function normalizeEditorToLimit(){
+  // Prevent typing beyond limit via keydown; this is a safety for pasted content.
+  const max = MAX_TEXT_LENGTH;
+  if(calculateWeightedLength() <= max) return;
 
-    updatePreview();
-    updateResult();
+  // Fallback: keep plain text only if exceeded massively.
+  const plain = el.textEditor.innerText.slice(0, max);
+  el.textEditor.innerText = plain;
+}
+
+/* ==========================================
+   Custom Color Picker (HSV)
+   Supports:
+     - baseColor, secondColor, bgColor1, bgColor2, avatarBorder
+     - partialText (foreColor)
+   ========================================== */
+let activeColorTarget = null;
+let pickerState = { h: 0, s: 0, v: 100 };
+let savedSelectionRange = null;
+
+function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+function hsvToRgb(h, s, v){
+  s /= 100; v /= 100;
+  const c = v * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = v - c;
+  let r=0,g=0,b=0;
+  if(h < 60){ r=c; g=x; b=0; }
+  else if(h < 120){ r=x; g=c; b=0; }
+  else if(h < 180){ r=0; g=c; b=x; }
+  else if(h < 240){ r=0; g=x; b=c; }
+  else if(h < 300){ r=x; g=0; b=c; }
+  else { r=c; g=0; b=x; }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+  return {r,g,b};
+}
+
+function rgbToHex(r,g,b){
+  const to = (n) => n.toString(16).padStart(2,'0');
+  return `#${to(r)}${to(g)}${to(b)}`.toUpperCase();
+}
+
+function hexToRgb(hex){
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if(!m) return {r:255,g:255,b:255};
+  const c = m[1];
+  return { r: parseInt(c.slice(0,2),16), g: parseInt(c.slice(2,4),16), b: parseInt(c.slice(4,6),16) };
+}
+
+function openPicker(target, initialHex){
+  activeColorTarget = target;
+  el.pickerOverlay.style.display = "flex";
+  el.pickerOverlay.setAttribute("aria-hidden","false");
+  const hex = (initialHex || "#FFFFFF").toUpperCase();
+  el.hexInput.value = hex;
+  el.pickerPreview.style.backgroundColor = hex;
+  // set hue base from hex roughly (cheap approach): keep hue as-is, update SV cursor by converting RGB -> HSV is overkill.
+  // We'll just set sv background hue from current hue and move thumb based on hue.
+  updatePickerVisuals();
+}
+
+function closePicker(){
+  el.pickerOverlay.style.display = "none";
+  el.pickerOverlay.setAttribute("aria-hidden","true");
+}
+
+function setPickerColorFromHSV(){
+  const {r,g,b} = hsvToRgb(pickerState.h, pickerState.s, pickerState.v);
+  const hex = rgbToHex(r,g,b);
+  el.hexInput.value = hex;
+  el.pickerPreview.style.backgroundColor = hex;
+}
+
+function updatePickerVisuals(){
+  // sv background hue
+  el.svArea.style.background = `hsl(${pickerState.h} 100% 50%)`;
+  // hue thumb position
+  const x = (pickerState.h / 360) * el.hueArea.clientWidth;
+  el.hueThumb.style.left = `${x}px`;
+  // cursor position (sv)
+  const cx = (pickerState.s / 100) * el.svArea.clientWidth;
+  const cy = ((100 - pickerState.v) / 100) * el.svArea.clientHeight;
+  el.svCursor.style.left = `${cx}px`;
+  el.svCursor.style.top = `${cy}px`;
+  setPickerColorFromHSV();
+}
+
+function updateSVFromEvent(e){
+  const rect = el.svArea.getBoundingClientRect();
+  const x = clamp(e.clientX - rect.left, 0, rect.width);
+  const y = clamp(e.clientY - rect.top, 0, rect.height);
+  pickerState.s = (x / rect.width) * 100;
+  pickerState.v = 100 - (y / rect.height) * 100;
+  updatePickerVisuals();
+}
+
+function updateHueFromEvent(e){
+  const rect = el.hueArea.getBoundingClientRect();
+  const x = clamp(e.clientX - rect.left, 0, rect.width);
+  pickerState.h = (x / rect.width) * 360;
+  updatePickerVisuals();
+}
+
+function applyPickedHex(hex){
+  hex = (hex || "#FFFFFF").toUpperCase();
+  // Validate
+  if(!/^#([0-9A-F]{6})$/.test(hex)) return;
+
+  if(activeColorTarget === 'partialText'){
+    if(savedSelectionRange){
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(savedSelectionRange);
+    }
+    el.textEditor.focus();
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('foreColor', false, hex);
+    updateFromUI();
+    return;
   }
 
-  // ========== Preview Update ==========
-  function updatePreview() {
-    const id = document.getElementById('userId').value.trim();
-    const nameInput = document.getElementById('userName').value.trim();
-    const preview = document.getElementById('namePreview');
+  if(activeColorTarget === 'baseColor') currentSettings.baseColor = hex;
+  else if(activeColorTarget === 'secondColor') currentSettings.secondColor = hex;
+  else if(activeColorTarget === 'bgColor1') currentSettings.bgColor1 = hex;
+  else if(activeColorTarget === 'bgColor2') currentSettings.bgColor2 = hex;
+  else if(activeColorTarget === 'avatarBorder') currentSettings.avatarBorderColor = hex;
 
-    let text = nameInput || id || '';
-    preview.textContent = text;
+  updateFromModel();
+}
 
-    if (!text) {
-      preview.style.backgroundImage = 'none';
-      preview.style.color = 'var(--gold)';
-      preview.style.webkitTextFillColor = '';
+function stripColorFormattingKeepingImages(){
+  el.textEditor.focus();
+  function cleanNode(node){
+    if(node.nodeType === 3) return node.textContent;
+    if(node.nodeType === 1){
+      if(node.tagName === 'IMG') return node.outerHTML;
+      let content = '';
+      node.childNodes.forEach(ch => content += cleanNode(ch));
+      return content;
+    }
+    return '';
+  }
+  let cleaned = '';
+  el.textEditor.childNodes.forEach(n => cleaned += cleanNode(n));
+  el.textEditor.innerHTML = cleaned;
+}
+
+/* ==========================================
+   Preview rendering
+   ========================================== */
+function buildTextStyle(){
+  if(currentSettings.useGradient){
+    if(currentSettings.gradientDir === 'circle'){
+      return `background: radial-gradient(circle, ${currentSettings.baseColor}, ${currentSettings.secondColor}); -webkit-background-clip:text; background-clip:text; color: transparent;`;
+    }
+    return `background: linear-gradient(${currentSettings.gradientDir}, ${currentSettings.baseColor}, ${currentSettings.secondColor}); -webkit-background-clip:text; background-clip:text; color: transparent;`;
+  }
+  return `color: ${currentSettings.baseColor};`;
+}
+
+function buildBgStyle(){
+  const op = clamp(parseFloat(currentSettings.bgOpacity || 0.9), 0, 1);
+  const c1 = currentSettings.bgColor1;
+  if(currentSettings.bgUseGradient){
+    const c2 = currentSettings.bgColor2;
+    const dir = currentSettings.bgGradientDir || 'to right';
+    return `background: linear-gradient(${dir}, ${c1}, ${c2}); opacity: ${op};`;
+  }
+  return `background: ${c1}; opacity: ${op};`;
+}
+
+function updatePreview(){
+  const scale = parseFloat(currentSettings.scale || 1.0);
+  const hasBg = !!currentSettings.useBg;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = `tag-container ${hasBg ? 'tag-has-bg ' + currentSettings.bgShape : ''}`;
+  wrapper.style.transform = `scale(${scale})`;
+
+  const bg = document.createElement('div');
+  bg.className = 'tag-bg-layer';
+  bg.style.cssText = hasBg ? buildBgStyle() : 'background: transparent; opacity: 1;';
+  wrapper.appendChild(bg);
+
+  const content = document.createElement('div');
+  content.className = `tag-content ${currentSettings.avatarPos === 'left' ? 'layout-left' : 'layout-right'}`;
+
+  if(currentSettings.useAvatar && currentSettings.avatar){
+    const av = document.createElement('div');
+    av.className = 'tag-avatar';
+    av.style.backgroundImage = `url('${currentSettings.avatar}')`;
+    if(currentSettings.useAvatarBorder){
+      av.style.border = `2px solid ${currentSettings.avatarBorderColor}`;
+    }
+    content.appendChild(av);
+  }
+
+  const text = document.createElement('div');
+  text.className = 'tag-text';
+  text.style.cssText = buildTextStyle() + `font-family: ${currentSettings.fontFamily};`;
+  // important: keep rich HTML (fonts/img)
+  text.innerHTML = currentSettings.text || '';
+  content.appendChild(text);
+
+  wrapper.appendChild(content);
+
+  el.livePreview.innerHTML = '';
+  el.livePreview.appendChild(wrapper);
+}
+
+/* ==========================================
+   Output generation
+   ========================================== */
+function updateOutput(){
+  const payloadSettings = structuredClone(currentSettings);
+  const settingsText = JSON.stringify(payloadSettings, null, 2);
+  const fullPayload = JSON.stringify({ targetId: el.targetId.value.trim(), settings: payloadSettings }, null, 2);
+  el.output.value = "هذا اعدادات الأسم حقك كامل\n والنتيجة النهائية اللي يحتاجها مسؤول المتجر\n"
+}
+
+/* ==========================================
+   UI <-> model syncing
+   ========================================== */
+function updateFromUI(){
+  normalizeEditorToLimit();
+  currentSettings.text = el.textEditor.innerHTML.trim();
+  currentSettings.useGradient = getSwitch(el.swTextGradient);
+  currentSettings.gradientDir = el.gradientDir.value;
+
+  currentSettings.useBg = getSwitch(el.swBg);
+  currentSettings.bgOpacity = parseFloat(el.bgOpacity.value || '0.9');
+  currentSettings.bgUseGradient = getSwitch(el.swBgGrad);
+  currentSettings.bgGradientDir = el.bgGradientDir.value;
+
+  currentSettings.useAvatar = getSwitch(el.swAvatar);
+  currentSettings.avatar = el.avatarUrl.value.trim();
+  currentSettings.avatarPos = el.avatarPos.value;
+  currentSettings.useAvatarBorder = getSwitch(el.swAvatarBorder);
+
+  currentSettings.scale = uiToScale(el.scale.value);
+  currentSettings.height = parseFloat(el.height.value || '0.2');
+
+  // Counter
+  el.counter.textContent = `${calculateWeightedLength()} / ${MAX_TEXT_LENGTH}`;
+
+  // Show/hide dependent panels
+  el.secondColorChip.style.display = currentSettings.useGradient ? 'flex' : 'none';
+  el.gradientDirWrap.style.display = currentSettings.useGradient ? 'block' : 'none';
+
+  el.bgControls.style.display = currentSettings.useBg ? 'block' : 'none';
+  el.bgGradWrap.style.display = (currentSettings.useBg && currentSettings.bgUseGradient) ? 'block' : 'none';
+
+  el.avatarControls.style.display = currentSettings.useAvatar ? 'block' : 'none';
+  el.avatarBorderColorWrap.style.display = (currentSettings.useAvatar && currentSettings.useAvatarBorder) ? 'block' : 'none';
+
+  // Dots
+  el.dotBase.style.backgroundColor = currentSettings.baseColor;
+  el.dotSecond.style.backgroundColor = currentSettings.secondColor;
+  el.dotBg1.style.backgroundColor = currentSettings.bgColor1;
+  el.dotBg2.style.backgroundColor = currentSettings.bgColor2;
+  el.dotAvatarBorder.style.backgroundColor = currentSettings.avatarBorderColor;
+
+  updatePreview();
+  updateOutput();
+}
+
+function updateFromModel(){
+  // apply model -> UI
+  el.textEditor.innerHTML = currentSettings.text || '';
+
+  setSwitch(el.swTextGradient, currentSettings.useGradient);
+  el.gradientDir.value = currentSettings.gradientDir;
+
+  setSwitch(el.swBg, currentSettings.useBg);
+  el.bgOpacity.value = String(currentSettings.bgOpacity);
+  setSwitch(el.swBgGrad, currentSettings.bgUseGradient);
+  el.bgGradientDir.value = currentSettings.bgGradientDir;
+
+  setSwitch(el.swAvatar, currentSettings.useAvatar);
+  el.avatarUrl.value = currentSettings.avatar || '';
+  el.avatarPos.value = currentSettings.avatarPos || 'right';
+  setSwitch(el.swAvatarBorder, currentSettings.useAvatarBorder);
+
+  el.scale.value = scaleToUi(currentSettings.scale);
+  el.height.value = String(currentSettings.height);
+
+  // refresh shapes selection
+  document.querySelectorAll('.shape-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.shapeId === currentSettings.bgShape);
+  });
+
+  updateFromUI();
+}
+
+/* ==========================================
+   Event bindings
+   ========================================== */
+function bindSwitch(sw, onChange){
+  sw.addEventListener('click', () => {
+    sw.classList.toggle('on');
+    onChange?.(getSwitch(sw));
+    updateFromUI();
+  });
+}
+
+function initShapes(){
+  el.shapesGrid.innerHTML = '';
+  shapes.forEach(s => {
+    const b = document.createElement('div');
+    b.className = 'shape-btn';
+    b.dataset.shapeId = s.id;
+    b.textContent = s.label;
+    b.title = s.id;
+    b.addEventListener('click', () => {
+      currentSettings.bgShape = s.id;
+      document.querySelectorAll('.shape-btn').forEach(x => x.classList.toggle('active', x === b));
+      updateFromUI();
+    });
+    el.shapesGrid.appendChild(b);
+  });
+}
+
+function setup(){
+  renderEmojiGrid();
+  initShapes();
+
+  // set initial dots
+  el.dotBase.style.backgroundColor = currentSettings.baseColor;
+  el.dotSecond.style.backgroundColor = currentSettings.secondColor;
+  el.dotBg1.style.backgroundColor = currentSettings.bgColor1;
+  el.dotBg2.style.backgroundColor = currentSettings.bgColor2;
+  el.dotAvatarBorder.style.backgroundColor = currentSettings.avatarBorderColor;
+
+  // switches
+  bindSwitch(el.swTextGradient);
+  bindSwitch(el.swBg);
+  bindSwitch(el.swBgGrad);
+  bindSwitch(el.swAvatar);
+  bindSwitch(el.swAvatarBorder);
+
+  // initial active shape
+  document.querySelectorAll('.shape-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.shapeId === currentSettings.bgShape);
+  });
+
+  // inputs
+  el.gradientDir.addEventListener('change', updateFromUI);
+
+  el.bgOpacity.addEventListener('input', updateFromUI);
+  el.bgGradientDir.addEventListener('change', updateFromUI);
+
+  el.avatarUrl.addEventListener('input', updateFromUI);
+  el.avatarPos.addEventListener('change', updateFromUI);
+
+  el.scale.addEventListener('input', updateFromUI);
+  el.height.addEventListener('input', updateFromUI);
+
+  // editor behavior
+  el.textEditor.addEventListener('input', updateFromUI);
+  el.textEditor.addEventListener('paste', (e) => {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand("insertText", false, text);
+    updateFromUI();
+  });
+  el.textEditor.addEventListener('keydown', (e) => {
+    const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','Enter'];
+    if(allowed.includes(e.key) || e.ctrlKey || e.metaKey) return;
+    if(calculateWeightedLength() >= MAX_TEXT_LENGTH) e.preventDefault();
+  });
+
+  // toggle emojis
+  el.btnToggleEmojis.addEventListener('click', () => {
+    el.emojiArea.style.display = (el.emojiArea.style.display === 'none') ? 'grid' : 'none';
+  });
+
+  // insert custom emoji
+  el.btnInsertEmoji.addEventListener('click', () => insertEmoji(el.customEmojiUrl.value.trim()));
+
+  // partial color
+  el.btnPartialColor.addEventListener('click', () => {
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount){
+      savedSelectionRange = sel.getRangeAt(0);
     } else {
-      if (colors.length === 1) {
-        preview.style.backgroundImage = 'none';
-        preview.style.color = colors[0];
-        preview.style.webkitTextFillColor = colors[0];
-      } else {
-        const gradient = buildGradient();
-        preview.style.backgroundImage = gradient;
-        preview.style.color = 'transparent';
-        preview.style.webkitTextFillColor = 'transparent';
-      }
+      savedSelectionRange = null;
+      el.textEditor.focus();
     }
+    activeColorTarget = 'partialText';
+    openPicker('partialText', '#FF0000');
+  });
 
-preview.style.fontWeight = fmt.bold ? '700' : '400';
-    preview.style.fontStyle = fmt.italic ? 'italic' : 'normal';
+  // clear format
+  el.btnClearFormat.addEventListener('click', () => {
+    stripColorFormattingKeepingImages();
+    updateFromUI();
+  });
 
-let size = 18;
-if(fmt.size === 'h1') size = 32;
-else if(fmt.size === 'h2') size = 28;
-else if(fmt.size === 'h3') size = 24;
-else if(fmt.size === 'h4') size = 20;
-else if(fmt.size === 'h5') size = 16;
-    preview.style.fontSize = size + 'px';
-
-    if (fmt.marquee) preview.classList.add('fivem-marquee');
-    else preview.classList.remove('fivem-marquee');
-
-    const before = document.getElementById('emojiBefore');
-    const after = document.getElementById('emojiAfter');
-    before.innerHTML = '';
-    after.innerHTML = '';
-
-    imagesBefore.forEach(url => {
-      before.innerHTML += `<img src="${url}" class="emoji-img" alt="emoji">`;
+  // click color chips
+  document.querySelectorAll('[data-color-target]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const target = chip.getAttribute('data-color-target');
+      activeColorTarget = target;
+      let current = '#FFFFFF';
+      if(target === 'baseColor') current = currentSettings.baseColor;
+      if(target === 'secondColor') current = currentSettings.secondColor;
+      if(target === 'bgColor1') current = currentSettings.bgColor1;
+      if(target === 'bgColor2') current = currentSettings.bgColor2;
+      if(target === 'avatarBorder') current = currentSettings.avatarBorderColor;
+      openPicker(target, current);
     });
-    imagesAfter.forEach(url => {
-      after.innerHTML += `<img src="${url}" class="emoji-img" alt="emoji">`;
-    });
+  });
 
-    updateResult();
-  }
+  // picker events
+  el.pickerClose.addEventListener('click', closePicker);
+  el.pickerOverlay.addEventListener('click', (e) => {
+    if(e.target === el.pickerOverlay) closePicker();
+  });
 
-  // ========== Result Builder ==========
-  function buildColorLines() {
-    if (!colors.length) return [];
-    const lines = [];
-    let i = 0;
-    let labelIndex = 1;
-    
-    while (i < colors.length) {
-      const baseHex = colors[i];
-      const rgb = hexToRgb(baseHex);
-      let count = 1;
-      
-      while (i + count < colors.length && colors[i + count].toLowerCase() === baseHex.toLowerCase()) {
-        count++;
-      }
-      
-      let line = `Color ${labelIndex} : ${rgb.r} - ${rgb.g} - ${rgb.b}`;
-      if (count > 1) line += ` (repeat ${count} times)`;
-      lines.push(line);
-      i += count;
-      labelIndex++;
+  let draggingSV = false;
+  el.svArea.addEventListener('mousedown', (e) => { draggingSV = true; updateSVFromEvent(e); });
+  window.addEventListener('mousemove', (e) => { if(draggingSV) updateSVFromEvent(e); });
+  window.addEventListener('mouseup', () => draggingSV = false);
+
+  let draggingH = false;
+  el.hueArea.addEventListener('mousedown', (e) => { draggingH = true; updateHueFromEvent(e); });
+  window.addEventListener('mousemove', (e) => { if(draggingH) updateHueFromEvent(e); });
+  window.addEventListener('mouseup', () => draggingH = false);
+
+  el.hexInput.addEventListener('input', () => {
+    const hex = el.hexInput.value.trim().toUpperCase();
+    if(/^#([0-9A-F]{6})$/.test(hex)){
+      el.pickerPreview.style.backgroundColor = hex;
     }
-    return lines;
-  }
+  });
 
-  function updateResult() {
-    const id = document.getElementById('userId').value.trim();
-    let name = document.getElementById('userName').value.trim();
+  el.pickerSelect.addEventListener('click', () => {
+    const hex = el.hexInput.value.trim().toUpperCase();
+    applyPickedHex(hex);
+    closePicker();
+  });
 
-    let prefix = "";
-    if (fmt.bold) prefix += "<b>";
-    if (fmt.italic) prefix += "<i>";
-    if (fmt.size !== "normal") prefix += `<${fmt.size}>`;
-    if (fmt.marquee) prefix += "<marquee>";
-    name = prefix + name;
+  // copy buttons
+  el.btnCopySettings.addEventListener('click', async () => {
+    const txt = JSON.stringify(currentSettings, null, 2);
+    await navigator.clipboard.writeText(txt);
+  });
+  el.btnCopyPayload.addEventListener('click', async () => {
+    const payload = { targetId: el.targetId.value.trim(), settings: currentSettings };
+    await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+  });
 
-    const allImages = [
-      ...imagesBefore.map(u => ({ pos: 'before', url: u })),
-      ...imagesAfter.map(u => ({ pos: 'after', url: u }))
-    ];
+  el.btnReset.addEventListener('click', () => {
+    currentSettings = structuredClone(defaultSettings);
+    el.targetId.value = '';
+    updateFromModel();
+  });
 
-    const colorLines = buildColorLines();
+  // initial UI
+  updateFromModel();
+  updatePickerVisuals();
+}
 
-    const lines = [];
-    lines.push('json (Ready to copy)');
-    lines.push('');
-    lines.push(`ID : ${id || ''}`);
-    lines.push(`Name : ${name || ''}`);
-    lines.push('');
-    lines.push('Images :');
-    if (!allImages.length) {
-      lines.push('-');
-    } else {
-      allImages.forEach(img => {
-        lines.push(`- ${img.pos} : ${img.url}`);
-      });
-    }
-    lines.push('');
-    lines.push('Colors in RGB');
-    if (!colorLines.length) {
-      const rgb = hexToRgb('#ff0000');
-      lines.push(`Color 1 : ${rgb.r} - ${rgb.g} - ${rgb.b}`);
-    } else {
-      colorLines.forEach(l => lines.push(l));
-    }
-
-    document.getElementById('result').value = lines.join('\n');
-  }
-
-  function copyResult() {
-    const txt = document.getElementById('result').value;
-    if (!txt) return;
-    navigator.clipboard.writeText(txt).then(() => {
-      console.log('Copied to clipboard');
-    });
-  }
-
-  // ========== Reset ==========
-  function resetAll() {
-    document.getElementById('userId').value = '';
-    document.getElementById('userName').value = '';
-    document.getElementById('imgUrl').value = '';
-    document.getElementById('imgPos').value = 'before';
-
-    colors = ['#ff0000'];
-    imagesBefore = [];
-    imagesAfter = [];
-    fmt.bold = false;
-    fmt.italic = false;
-    fmt.size = 'normal';
-    fmt.marquee = false;
-
-    document.querySelectorAll('.btn-format').forEach(b => b.classList.remove('active'));
-
-    renderColors();
-    renderImages();
-
-    const preview = document.getElementById('namePreview');
-    preview.textContent = '';
-    preview.style.backgroundImage = 'none';
-    preview.style.color = 'var(--gold)';
-    preview.style.webkitTextFillColor = '';
-
-    updateResult();
-  }
-
-  // ========== Init ==========
-  (function init() {
-    renderColors();
-    renderImages();
-    updateResult();
-  })();
-
+setup();
 </script>
+
 </body>
 </html>
