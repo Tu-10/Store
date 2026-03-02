@@ -8,7 +8,14 @@
   <style>
     /* =========================================================
        ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
-       Updated to be compatible with origin-Tags settings payload.
+       ما احلل اي شخص ينقل الكود او يستخدمه بدون الرجوع لي واخذ الأذن مني
+        تواصل معي اذا حبيت تستخدمه او تعدل عليه او حتى تبغى مساعدة في شيء ثاني
+
+          تواصل معي من خلال :
+          Discord : <https://discord.com/users/568484211644825612>
+          My Page : https://guns.lol/tu.10
+  
+            ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
        ========================================================= */
 
     :root{
@@ -200,7 +207,6 @@
     }
     .switch.on::after{ left: 22px; background: rgba(255,255,255,0.95); }
 
-    /* Preview */
     .preview-wrap{
       background: rgba(0,0,0,0.20);
       border: 1px solid rgba(255,165,0,0.15);
@@ -263,7 +269,6 @@
       display:inline-block;
       line-height: 1.2;
     }
-    /* emoji inside preview text */
 .tag-text img.inline-emoji{
   width: 40px;
   height: 40px;
@@ -286,7 +291,6 @@
       box-shadow: 0 8px 18px rgba(0,0,0,0.35);
     }
 
-    /* Background shapes (subset + compatible ids) */
     .bg-capsule .tag-bg-layer { border-radius: 999px; border: 1px solid rgba(255,255,255,0.10); }
     .bg-hexagon .tag-bg-layer { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); }
     .bg-shield .tag-bg-layer { clip-path: polygon(50% 0, 100% 15%, 100% 85%, 50% 100%, 0 85%, 0 15%); }
@@ -300,7 +304,6 @@
     .bg-crown .tag-bg-layer { clip-path: polygon(0% 100%, 0% 25%, 25% 50%, 50% 0%, 75% 50%, 100% 25%, 100% 100%); }
     .bg-tag-modern .tag-bg-layer { clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%); border-left: 3px solid rgba(255,165,0,0.55); }
 
-    /* Shapes picker */
     .shapes-grid{
       display:grid;
       grid-template-columns: repeat(6, 1fr);
@@ -351,7 +354,6 @@
       accent-color: var(--gold);
     }
 
-    /* Editor */
     .editor{
       min-height: 76px;
       max-height: 140px;
@@ -368,7 +370,6 @@
       border-radius: 6px;
     }
 
-    /* Emoji list */
     .emoji-grid{
       display:grid;
       grid-template-columns: repeat(10, 1fr);
@@ -397,7 +398,6 @@
     }
     .emoji-tile img{ width: 22px; height: 22px; object-fit: contain; }
 
-    /* Color Picker Modal */
     .overlay{
       position: fixed;
       inset: 0;
@@ -508,9 +508,8 @@
 <body>
 
   <div class="container">
-    <!-- LEFT: Text + Preview -->
     <div class="panel panel-left">
-      <div class="section-title">محتوى الأيدي والأسم <span id="counter" class="hint">0 / 60</span></div>
+      <div class="section-title">محتوى الأيدي والأسم <span id="counter" class="hint">0 / 50</span></div>
 
       <input id="targetId" class="input" type="text" placeholder="حط أيديك بالسيرفر هنا مثال : 10">
 
@@ -567,7 +566,6 @@
       </div>
     </div>
 
-    <!-- RIGHT TOP: Background + Avatar -->
     <div class="panel panel-right-top">
       <div class="section-title">الخلفية خلف الأسم</div>
 
@@ -643,7 +641,6 @@
       </div>
     </div>
 
-    <!-- RIGHT BOTTOM: Scale/Height + Output -->
     <div class="panel panel-right-bottom">
       <div class="section-title">تعديل الحجم كامل (ملاحظه ما نقدر نعدل حجم الصورة لحالها او الاسم لحاله التغيير كامل يشمل الأسم والصورة كامله)</div>
 
@@ -672,7 +669,6 @@
     </div>
   </div>
 
-  <!-- Color Picker Modal -->
   <div id="pickerOverlay" class="overlay" aria-hidden="true">
     <div class="modal">
       <div class="modal-header">
@@ -699,14 +695,21 @@
   </div>
 
 <script>
-/* ==========================================
-   Origin-tags compatible settings model
-   ========================================== */
+    /* =========================================================
+       ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ما احلل اي شخص ينقل الكود او يستخدمه بدون الرجوع لي واخذ الأذن مني
+        تواصل معي اذا حبيت تستخدمه او تعدل عليه او حتى تبغى مساعدة في شيء ثاني
+
+          تواصل معي من خلال :
+          Discord : <https://discord.com/users/568484211644825612>
+          My Page : https://guns.lol/tu.10
+  
+            ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ========================================================= */
 const MAX_TEXT_LENGTH = 50;
 
-// Scale UX: slider starts from left at 0 but real scale starts at 1.0 (مثل السكربت)
-const BASE_SCALE = 1.0;      // default (matches script)
-const MAX_SCALE_ADD = 1.0;   // slider 100 => scale 1.8
+const BASE_SCALE = 1.0;   
+const MAX_SCALE_ADD = 1.0; 
 
 function uiToScale(v){
   const n = Math.max(0, Math.min(100, parseFloat(v || '0')));
@@ -761,9 +764,6 @@ const defaultSettings = {
 
 let currentSettings = structuredClone(defaultSettings);
 
-/* ==========================================
-   DOM
-   ========================================== */
 const el = {
   targetId: document.getElementById('targetId'),
   textEditor: document.getElementById('textEditor'),
@@ -804,14 +804,12 @@ const el = {
   btnCopySettings: document.getElementById('btnCopySettings'),
   btnReset: document.getElementById('btnReset'),
 
-  // dots
   dotBase: document.getElementById('dotBase'),
   dotSecond: document.getElementById('dotSecond'),
   dotBg1: document.getElementById('dotBg1'),
   dotBg2: document.getElementById('dotBg2'),
   dotAvatarBorder: document.getElementById('dotAvatarBorder'),
 
-  // picker
   pickerOverlay: document.getElementById('pickerOverlay'),
   pickerClose: document.getElementById('pickerClose'),
   pickerSelect: document.getElementById('pickerSelect'),
@@ -830,20 +828,60 @@ function getSwitch(sw){
   return sw.classList.contains('on');
 }
 
-/* ==========================================
-   Emoji presets (simple, editable)
-   ========================================== */
+
 const defaultEmojis = [
-  "https://i.postimg.cc/m2gHqqWv/1.png",
-  "https://i.postimg.cc/SRPcZsKh/2.png",
-  "https://i.postimg.cc/qqMvgk2S/3.png",
-  "https://i.postimg.cc/4N2Q2G5n/4.png",
-  "https://i.postimg.cc/7P0G7CkJ/5.png",
-  "https://i.postimg.cc/vZkW2HKP/6.png",
-  "https://i.postimg.cc/Kv3v0ztr/7.png",
-  "https://i.postimg.cc/d0z2Ykq6/8.png",
-  "https://i.postimg.cc/D0n9R04t/9.png",
-  "https://i.postimg.cc/HsYqzWZ2/10.png",
+  "https://cdn.discordapp.com/emojis/1464303434449551443.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1465940088809717974.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1465939243527438471.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425011684531109908.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425025908246450268.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425025583972356130.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425015136321798185.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425025654029684778.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425027009712492548.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425011036515471390.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425013805145919570.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425014170411335710.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1425013016801316915.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425014064052047902.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1425012969577779220.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1425024859490091039.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1309206759969390662.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595116142611.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595040649286.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313594667352075.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595015471144.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313594944180225.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595074195486.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595090964511.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313595166490664.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313634530009138.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313634601332827.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313634102206465.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/916313634400010280.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1409485548426629162.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1149734528387141793.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1149731145999716473.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1157412128903397408.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1157416189937590393.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1157414736829366382.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1157416189937590393.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1169749132638949467.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1430007741602332672.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1387934154192326807.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1324118240884031580.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1324105459220615189.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/732725647855714364.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1321222072038588468.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1321222085380673587.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1311071581732212838.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1317514729148776480.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1105682193768009738.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/963349933400944670.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1261833566531227760.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1047285431248621638.webp?size=32",
+  "https://cdn.discordapp.com/emojis/1423181533728211025.webp?size=32&animated=true",
+  "https://cdn.discordapp.com/emojis/1423180751079342183.webp?size=32"
 ];
 
 function renderEmojiGrid(){
@@ -869,7 +907,6 @@ function insertEmoji(url){
   img.alt = "emoji";
   img.className = "inline-emoji";
   document.getSelection()?.getRangeAt(0)?.insertNode(img);
-  // move cursor after img
   const range = document.createRange();
   range.setStartAfter(img);
   range.collapse(true);
@@ -879,10 +916,18 @@ function insertEmoji(url){
   updateFromUI();
 }
 
-/* ==========================================
-   Weighted length like origin-tags
-   - images count as 2 chars
-   ========================================== */
+    /* =========================================================
+       ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ما احلل اي شخص ينقل الكود او يستخدمه بدون الرجوع لي واخذ الأذن مني
+        تواصل معي اذا حبيت تستخدمه او تعدل عليه او حتى تبغى مساعدة في شيء ثاني
+
+          تواصل معي من خلال :
+          Discord : <https://discord.com/users/568484211644825612>
+          My Page : https://guns.lol/tu.10
+  
+            ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ========================================================= */
+
 function calculateWeightedLength(){
   let len = 0;
   const walker = document.createTreeWalker(el.textEditor, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
@@ -898,21 +943,13 @@ function calculateWeightedLength(){
 }
 
 function normalizeEditorToLimit(){
-  // Prevent typing beyond limit via keydown; this is a safety for pasted content.
   const max = MAX_TEXT_LENGTH;
   if(calculateWeightedLength() <= max) return;
 
-  // Fallback: keep plain text only if exceeded massively.
   const plain = el.textEditor.innerText.slice(0, max);
   el.textEditor.innerText = plain;
 }
 
-/* ==========================================
-   Custom Color Picker (HSV)
-   Supports:
-     - baseColor, secondColor, bgColor1, bgColor2, avatarBorder
-     - partialText (foreColor)
-   ========================================== */
 let activeColorTarget = null;
 let pickerState = { h: 0, s: 0, v: 100 };
 let savedSelectionRange = null;
@@ -956,8 +993,7 @@ function openPicker(target, initialHex){
   const hex = (initialHex || "#FFFFFF").toUpperCase();
   el.hexInput.value = hex;
   el.pickerPreview.style.backgroundColor = hex;
-  // set hue base from hex roughly (cheap approach): keep hue as-is, update SV cursor by converting RGB -> HSV is overkill.
-  // We'll just set sv background hue from current hue and move thumb based on hue.
+
   updatePickerVisuals();
 }
 
@@ -974,12 +1010,9 @@ function setPickerColorFromHSV(){
 }
 
 function updatePickerVisuals(){
-  // sv background hue
   el.svArea.style.background = `hsl(${pickerState.h} 100% 50%)`;
-  // hue thumb position
   const x = (pickerState.h / 360) * el.hueArea.clientWidth;
   el.hueThumb.style.left = `${x}px`;
-  // cursor position (sv)
   const cx = (pickerState.s / 100) * el.svArea.clientWidth;
   const cy = ((100 - pickerState.v) / 100) * el.svArea.clientHeight;
   el.svCursor.style.left = `${cx}px`;
@@ -1005,7 +1038,6 @@ function updateHueFromEvent(e){
 
 function applyPickedHex(hex){
   hex = (hex || "#FFFFFF").toUpperCase();
-  // Validate
   if(!/^#([0-9A-F]{6})$/.test(hex)) return;
 
   if(activeColorTarget === 'partialText'){
@@ -1047,9 +1079,7 @@ function stripColorFormattingKeepingImages(){
   el.textEditor.innerHTML = cleaned;
 }
 
-/* ==========================================
-   Preview rendering
-   ========================================== */
+
 function buildTextStyle(){
   if(currentSettings.useGradient){
     if(currentSettings.gradientDir === 'circle'){
@@ -1100,7 +1130,6 @@ function updatePreview(){
   const text = document.createElement('div');
   text.className = 'tag-text';
   text.style.cssText = buildTextStyle() + `font-family: ${currentSettings.fontFamily};`;
-  // important: keep rich HTML (fonts/img)
   text.innerHTML = currentSettings.text || '';
   content.appendChild(text);
 
@@ -1110,9 +1139,7 @@ function updatePreview(){
   el.livePreview.appendChild(wrapper);
 }
 
-/* ==========================================
-   Output generation
-   ========================================== */
+
 function updateOutput(){
   const payloadSettings = structuredClone(currentSettings);
   const settingsText = JSON.stringify(payloadSettings, null, 2);
@@ -1120,9 +1147,7 @@ function updateOutput(){
   el.output.value = "هذا اعدادات الأسم حقك كامل\n والنتيجة النهائية اللي يحتاجها مسؤول المتجر\n"
 }
 
-/* ==========================================
-   UI <-> model syncing
-   ========================================== */
+
 function updateFromUI(){
   normalizeEditorToLimit();
   currentSettings.text = el.textEditor.innerHTML.trim();
@@ -1142,10 +1167,8 @@ function updateFromUI(){
   currentSettings.scale = uiToScale(el.scale.value);
   currentSettings.height = parseFloat(el.height.value || '0.2');
 
-  // Counter
   el.counter.textContent = `${calculateWeightedLength()} / ${MAX_TEXT_LENGTH}`;
 
-  // Show/hide dependent panels
   el.secondColorChip.style.display = currentSettings.useGradient ? 'flex' : 'none';
   el.gradientDirWrap.style.display = currentSettings.useGradient ? 'block' : 'none';
 
@@ -1155,7 +1178,6 @@ function updateFromUI(){
   el.avatarControls.style.display = currentSettings.useAvatar ? 'block' : 'none';
   el.avatarBorderColorWrap.style.display = (currentSettings.useAvatar && currentSettings.useAvatarBorder) ? 'block' : 'none';
 
-  // Dots
   el.dotBase.style.backgroundColor = currentSettings.baseColor;
   el.dotSecond.style.backgroundColor = currentSettings.secondColor;
   el.dotBg1.style.backgroundColor = currentSettings.bgColor1;
@@ -1167,7 +1189,6 @@ function updateFromUI(){
 }
 
 function updateFromModel(){
-  // apply model -> UI
   el.textEditor.innerHTML = currentSettings.text || '';
 
   setSwitch(el.swTextGradient, currentSettings.useGradient);
@@ -1186,7 +1207,6 @@ function updateFromModel(){
   el.scale.value = scaleToUi(currentSettings.scale);
   el.height.value = String(currentSettings.height);
 
-  // refresh shapes selection
   document.querySelectorAll('.shape-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.shapeId === currentSettings.bgShape);
   });
@@ -1194,9 +1214,7 @@ function updateFromModel(){
   updateFromUI();
 }
 
-/* ==========================================
-   Event bindings
-   ========================================== */
+
 function bindSwitch(sw, onChange){
   sw.addEventListener('click', () => {
     sw.classList.toggle('on');
@@ -1226,26 +1244,22 @@ function setup(){
   renderEmojiGrid();
   initShapes();
 
-  // set initial dots
   el.dotBase.style.backgroundColor = currentSettings.baseColor;
   el.dotSecond.style.backgroundColor = currentSettings.secondColor;
   el.dotBg1.style.backgroundColor = currentSettings.bgColor1;
   el.dotBg2.style.backgroundColor = currentSettings.bgColor2;
   el.dotAvatarBorder.style.backgroundColor = currentSettings.avatarBorderColor;
 
-  // switches
   bindSwitch(el.swTextGradient);
   bindSwitch(el.swBg);
   bindSwitch(el.swBgGrad);
   bindSwitch(el.swAvatar);
   bindSwitch(el.swAvatarBorder);
 
-  // initial active shape
   document.querySelectorAll('.shape-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.shapeId === currentSettings.bgShape);
   });
 
-  // inputs
   el.gradientDir.addEventListener('change', updateFromUI);
 
   el.bgOpacity.addEventListener('input', updateFromUI);
@@ -1257,7 +1271,6 @@ function setup(){
   el.scale.addEventListener('input', updateFromUI);
   el.height.addEventListener('input', updateFromUI);
 
-  // editor behavior
   el.textEditor.addEventListener('input', updateFromUI);
   el.textEditor.addEventListener('paste', (e) => {
     e.preventDefault();
@@ -1271,15 +1284,12 @@ function setup(){
     if(calculateWeightedLength() >= MAX_TEXT_LENGTH) e.preventDefault();
   });
 
-  // toggle emojis
   el.btnToggleEmojis.addEventListener('click', () => {
     el.emojiArea.style.display = (el.emojiArea.style.display === 'none') ? 'grid' : 'none';
   });
 
-  // insert custom emoji
   el.btnInsertEmoji.addEventListener('click', () => insertEmoji(el.customEmojiUrl.value.trim()));
 
-  // partial color
   el.btnPartialColor.addEventListener('click', () => {
     const sel = window.getSelection();
     if(sel && sel.rangeCount){
@@ -1292,13 +1302,11 @@ function setup(){
     openPicker('partialText', '#FF0000');
   });
 
-  // clear format
   el.btnClearFormat.addEventListener('click', () => {
     stripColorFormattingKeepingImages();
     updateFromUI();
   });
 
-  // click color chips
   document.querySelectorAll('[data-color-target]').forEach(chip => {
     chip.addEventListener('click', () => {
       const target = chip.getAttribute('data-color-target');
@@ -1313,7 +1321,6 @@ function setup(){
     });
   });
 
-  // picker events
   el.pickerClose.addEventListener('click', closePicker);
   el.pickerOverlay.addEventListener('click', (e) => {
     if(e.target === el.pickerOverlay) closePicker();
@@ -1342,7 +1349,6 @@ function setup(){
     closePicker();
   });
 
-  // copy buttons
   el.btnCopySettings.addEventListener('click', async () => {
     const txt = JSON.stringify(currentSettings, null, 2);
     await navigator.clipboard.writeText(txt);
@@ -1358,13 +1364,23 @@ function setup(){
     updateFromModel();
   });
 
-  // initial UI
   updateFromModel();
   updatePickerVisuals();
 }
+    /* =========================================================
+       ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ما احلل اي شخص ينقل الكود او يستخدمه بدون الرجوع لي واخذ الأذن مني
+        تواصل معي اذا حبيت تستخدمه او تعدل عليه او حتى تبغى مساعدة في شيء ثاني
 
+          تواصل معي من خلال :
+          Discord : <https://discord.com/users/568484211644825612>
+          My Page : https://guns.lol/tu.10
+  
+            ♥ Made By : 𝑻𝒖𝒓𝒌𝒊 𝟏𝟎 ♥
+       ========================================================= */
 setup();
 </script>
 
 </body>
 </html>
+
