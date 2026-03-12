@@ -207,9 +207,16 @@
     }
     .switch.on::after{ left: 22px; background: rgba(255,255,255,0.95); }
 
+    .preview-stage{
+      width: 100%;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
     .preview-wrap{
-      background: rgba(0,0,0,0.20);
-      border: 1px solid rgba(255,165,0,0.15);
+      background:
+        radial-gradient(120% 80% at 50% 8%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, #d5dae3 0%, #bcc4d0 58%, #9ca8bb 100%);
+      border: 1px solid rgba(255,255,255,0.42);
       border-radius: var(--radius-lg);
       padding: 18px;
       min-height: 110px;
@@ -218,6 +225,27 @@
       justify-content:center;
       position: relative;
       overflow:hidden;
+      margin: 0 auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.35),
+        inset 0 -24px 54px rgba(45,58,80,0.24);
+    }
+    .preview-wrap.with-custom-image{
+      padding: 0;
+      min-height: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      border-color: rgba(255,255,255,0.22);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .preview-wrap.with-custom-image::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.18));
+      pointer-events: none;
+      z-index: 1;
     }
     .preview-label{
       position:absolute;
@@ -231,6 +259,25 @@
       border-radius: 999px;
       border: 1px solid rgba(255,165,0,0.18);
       background: rgba(0,0,0,0.22);
+      z-index: 3;
+    }
+    #livePreview{
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-wrap.with-custom-image #livePreview{
+      min-height: 100%;
+      padding: 0 18px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .preview-wrap.with-custom-image #livePreview > .tag-container{
+      margin-top: var(--head-name-offset, 24%);
     }
 
     .tag-container{
@@ -267,14 +314,14 @@
       white-space: nowrap;
       text-shadow: 0 2px 4px rgba(0,0,0,0.75);
       display:inline-block;
-      line-height: 1.2;
+      line-height: 1.08;
     }
 .tag-text img.inline-emoji{
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
+  width: 1.05em;
+  height: 1.05em;
+  object-fit: contain;
   border-radius: 50%;
-  vertical-align: middle;
+  vertical-align: -0.08em;
   border: none;
 }
     .tag-text font, .tag-text span{
@@ -560,9 +607,11 @@
       </div>
 
       <div class="section-title" style="margin-top: 12px;">الشكل تحت يمثل شكل الأسم حقك في اللعبه</div>
-      <div class="preview-wrap">
-        <div class="preview-label">شكل تقريبي للأسم</div>
-        <div id="livePreview" class="tag-container"></div>
+      <div id="previewStage" class="preview-stage" style="margin-top:10px;">
+        <div class="preview-wrap" id="previewWrap">
+          <div class="preview-label">شكل تقريبي للأسم</div>
+          <div id="livePreview" class="tag-container"></div>
+        </div>
       </div>
     </div>
 
@@ -656,7 +705,7 @@
       </div>
 
       <div class="row" style="margin-top: 12px;">
-        <button class="btn primary" id="btnCopySettings">أنسخ الكلام هنا وارسله لمسؤولين المتجر</button>
+<button class="btn primary" id="btnCopySettings">انسخ الكلام هنا و ارسله لمسؤولين المتجر</button>
         <button class="btn danger" id="btnReset">رسيت لكل شيء</button>
       </div>
 
@@ -760,6 +809,7 @@ const defaultSettings = {
   bgUseGradient: false,
   bgColor2: '#000000',
   bgGradientDir: 'to right',
+  previewImageUrl: '',
 };
 
 let currentSettings = structuredClone(defaultSettings);
@@ -798,7 +848,9 @@ const el = {
   scale: document.getElementById('scale'),
   height: document.getElementById('height'),
 
+  previewStage: document.getElementById('previewStage'),
   livePreview: document.getElementById('livePreview'),
+  previewWrap: document.getElementById('previewWrap'),
   output: document.getElementById('output'),
 
   btnCopySettings: document.getElementById('btnCopySettings'),
@@ -1101,13 +1153,99 @@ function buildBgStyle(){
   return `background: ${c1}; opacity: ${op};`;
 }
 
+let previewImageLoadToken = 0;
+let cachedPreviewImageUrl = '';
+let cachedNaturalWidth = 0;
+let cachedNaturalHeight = 0;
+
+function resetPreviewWrapSize(){
+  el.previewWrap.classList.remove('with-custom-image');
+  el.previewWrap.style.backgroundImage = '';
+  el.previewWrap.style.width = '';
+  el.previewWrap.style.height = '';
+  el.previewWrap.style.minHeight = '';
+  el.previewWrap.style.removeProperty('--head-name-offset');
+  cachedPreviewImageUrl = '';
+  cachedNaturalWidth = 0;
+  cachedNaturalHeight = 0;
+}
+
+function applyPreviewWrapSizing(naturalWidth, naturalHeight, imageUrl){
+  const stageWidth = Math.max(
+    320,
+    Number(el.previewStage?.clientWidth || 0),
+    Number(el.previewStage?.getBoundingClientRect?.().width || 0)
+  );
+  const ratio = naturalWidth / naturalHeight;
+  const targetWidth = Math.max(1, Math.min(naturalWidth, stageWidth));
+  const targetHeight = Math.max(1, Math.round(targetWidth / ratio));
+
+  el.previewWrap.classList.add('with-custom-image');
+  el.previewWrap.style.backgroundImage = `url("${imageUrl.replace(/"/g, '\\"')}")`;
+  el.previewWrap.style.width = `${targetWidth}px`;
+  el.previewWrap.style.height = `${targetHeight}px`;
+  el.previewWrap.style.minHeight = `${targetHeight}px`;
+  el.previewWrap.style.setProperty('--head-name-offset', `${Math.round(targetHeight * 0.24)}px`);
+}
+
+function applyPreviewBackgroundImage(){
+  if(!el.previewWrap) return;
+  const imageUrl = String(currentSettings.previewImageUrl || '').trim();
+
+  if(!imageUrl){
+    resetPreviewWrapSize();
+    return;
+  }
+
+  if (
+    imageUrl === cachedPreviewImageUrl &&
+    cachedNaturalWidth > 0 &&
+    cachedNaturalHeight > 0
+  ) {
+    applyPreviewWrapSizing(cachedNaturalWidth, cachedNaturalHeight, imageUrl);
+    return;
+  }
+
+  const token = ++previewImageLoadToken;
+  const img = new Image();
+  img.decoding = 'async';
+  img.referrerPolicy = 'no-referrer';
+
+  img.onload = () => {
+    if(token !== previewImageLoadToken) return;
+
+    const width = img.naturalWidth || 0;
+    const height = img.naturalHeight || 0;
+    if(!width || !height){
+      resetPreviewWrapSize();
+      return;
+    }
+
+    cachedPreviewImageUrl = imageUrl;
+    cachedNaturalWidth = width;
+    cachedNaturalHeight = height;
+    applyPreviewWrapSizing(width, height, imageUrl);
+  };
+
+  img.onerror = () => {
+    if(token !== previewImageLoadToken) return;
+    resetPreviewWrapSize();
+  };
+
+  img.src = imageUrl;
+}
+
 function updatePreview(){
   const scale = parseFloat(currentSettings.scale || 1.0);
   const hasBg = !!currentSettings.useBg;
+  const hasPreviewImage = !!String(currentSettings.previewImageUrl || '').trim();
+
+  applyPreviewBackgroundImage();
 
   const wrapper = document.createElement('div');
   wrapper.className = `tag-container ${hasBg ? 'tag-has-bg ' + currentSettings.bgShape : ''}`;
   wrapper.style.transform = `scale(${scale})`;
+  wrapper.style.transformOrigin = hasPreviewImage ? 'center bottom' : 'center center';
 
   const bg = document.createElement('div');
   bg.className = 'tag-bg-layer';
@@ -1267,6 +1405,18 @@ function setup(){
 
   el.avatarUrl.addEventListener('input', updateFromUI);
   el.avatarPos.addEventListener('change', updateFromUI);
+  el.targetId.addEventListener('input', () => {
+    updatePreview();
+    updateOutput();
+  });
+  let previewResizeDebounce = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(previewResizeDebounce);
+    previewResizeDebounce = setTimeout(() => {
+      applyPreviewBackgroundImage();
+      updatePreview();
+    }, 120);
+  });
 
   el.scale.addEventListener('input', updateFromUI);
   el.height.addEventListener('input', updateFromUI);
@@ -1350,12 +1500,34 @@ function setup(){
   });
 
   el.btnCopySettings.addEventListener('click', async () => {
-    const txt = JSON.stringify(currentSettings, null, 2);
-    await navigator.clipboard.writeText(txt);
-  });
-  el.btnCopyPayload.addEventListener('click', async () => {
-    const payload = { targetId: el.targetId.value.trim(), settings: currentSettings };
-    await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+    const payload = {
+      targetId: el.targetId.value.trim(),
+      settings: currentSettings,
+      timestamp: Date.now()
+    };
+
+    const livePreview = makeLivePreviewLink(payload);
+    let previewImage = null;
+    try {
+      previewImage = await capturePreviewImage();
+    } catch (error) {
+      previewImage = null;
+    }
+
+    const finalToCopy = {
+      ...payload,
+      livePreview
+    };
+    if (previewImage) {
+      finalToCopy.previewImage = previewImage;
+    }
+
+    await navigator.clipboard.writeText(JSON.stringify(finalToCopy, null, 2));
+    alert(
+      previewImage
+        ? "تم نسخ الطلب كامل مع صورة المعاينة الحالية."
+        : "تم نسخ الطلب بنجاح. إذا تعذر إرفاق صورة المعاينة من الصفحة، البوت سيولدها تلقائياً."
+    );
   });
 
   el.btnReset.addEventListener('click', () => {
@@ -1380,7 +1552,66 @@ function setup(){
        ========================================================= */
 setup();
 </script>
+<script>
 
+async function capturePreviewImage(){
+ const element = document.getElementById("previewWrap") || document.getElementById("livePreview");
+   if(!element) return null;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+
+  const canvas = await html2canvas(element,{
+    backgroundColor:null,
+    scale:2,
+    useCORS:true,
+    allowTaint:false,
+    imageTimeout:15000
+  });
+
+  return canvas.toDataURL("image/jpeg",0.9);
+
+}
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+<script>
+function makeLivePreviewLink(payload){
+  const packed = LZString.compressToEncodedURIComponent(JSON.stringify(payload));
+  return `${location.origin}${location.pathname}#d=${packed}`;
+}
+
+function readPayloadFromHash(){
+  const m = location.hash.match(/#d=([^&]+)/);
+  if(!m) return null;
+  try{
+    const json = LZString.decompressFromEncodedURIComponent(m[1]);
+    return JSON.parse(json);
+  }catch(e){
+    return null;
+  }
+}
+</script>
+<script>
+window.addEventListener('load', () => {
+  const p = readPayloadFromHash();
+  if(!p || !p.settings) return;
+
+  // 1) حط TargetId
+  const targetEl = document.getElementById("targetId");
+  if(targetEl && p.targetId) targetEl.value = String(p.targetId);
+
+  // 2) طبّق settings على موديلك
+  // ملاحظة: عندك currentSettings و defaultSettings موجودة
+  // هنا نفترض currentSettings هو المصدر اللي يحرّك الـ preview
+  try{
+    currentSettings = { ...structuredClone(defaultSettings), ...p.settings };
+    updateFromModel?.();   // موجود عندك حسب كودك
+    updateFromUI?.();      // إذا تحتاج
+  }catch(e){}
+});
+</script>
+
+</script>
 </body>
 </html>
-
